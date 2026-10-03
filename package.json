@@ -1,0 +1,35 @@
+{
+    "name": "s2j-webinar-service",
+    "version": "0.0.1",
+    "description": "A pure PHP library for building a Zoom Webinar Request (WP-Independent)",
+    "type": "module",
+    "author": "Koutarou ISHIKAWA",
+    "license": "GPL-3.0-or-later",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/stein2nd/s2j-webinar-service.git"
+    },
+    "homepage": "https://github.com/stein2nd/s2j-webinar-service#readme",
+    "bugs": {
+        "url": "https://github.com/stein2nd/s2j-webinar-service/issues"
+    },
+    "keywords": [],
+    "workspaces": [],
+    "directories": {},
+    "files": [],
+    "main": "",
+    "devDependencies": {
+        "@s2j/docs-linter": "^1.0.26"
+    },
+    "scripts": {
+        "generate": "./scripts/generate/all.zsh",
+        "verify:codegen": "./scripts/generate/all.zsh && git diff --exit-code",
+        "build:ts-client": "npm run build -w @s2j/similarity-client",
+        "test:ts-client": "npm test -w @s2j/similarity-client",
+        "lint:docs": "s2j-docs-linter ./README.md ./CHANGELOG.md ./docs/**/*.md"
+    },
+    "allowScripts": {
+        "@s2j/docs-linter": true,
+        "esbuild": true
+    }
+}
