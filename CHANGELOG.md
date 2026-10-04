@@ -2,6 +2,13 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-04
+
+### Changed
+
+* ドキュメント lint の `@s2j/docs-linter` を ^1.0.27に更新
+* `docs_mod/service_spec.md` の表記をドキュメント lint に合わせた (`できない`、`デフォルト`、`ユーザー`)
+
 ## 0.0.1 - 2026-10-03
 
 ### Added

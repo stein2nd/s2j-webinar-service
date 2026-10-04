@@ -19,7 +19,7 @@
     "files": [],
     "main": "",
     "devDependencies": {
-        "@s2j/docs-linter": "^1.0.26"
+        "@s2j/docs-linter": "^1.0.27"
     },
     "scripts": {
         "generate": "./scripts/generate/all.zsh",
