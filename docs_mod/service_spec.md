@@ -60,7 +60,7 @@ WordPress から Zoom Webinar を作れる既存プラグインは、いくつ�
 
 これらは採用しません。イベントの画面は GatherPress に固定し、Zoom は配信と録画の基盤に限るためです。既存製品は、それぞれが別のイベント管理を持ちます。CoverArt、追跡用 QR、フライヤーは、どの製品の担当でもありません。
 
-GatherPress 単体も、オンライン会場の URL を書くところまでです。Webinar の作成はしません。
+GatherPress 単体も、オンライン会場の URL を書くところまで、です。Webinar の作成はしません。
 
 Zoom の管理画面をブラウザ操作で再現することはしません。初回の接続は Zoom の OAuth 画面です。以降は REST API です。
 
@@ -117,7 +117,7 @@ GatherPress Event
      └── フライヤー PDF
 ```
 
-質問メールの送信先は、セッション中の Q&A (`settings.question_and_answer`) とは別です。作成時に指定する連絡先であり、API では登録の連絡先 `settings.contact_name` と `settings.contact_email` に載せます。値は登壇者の1人目の氏名と社内メールアドレスです。ホストの `zoom3@…` と、営業のファンクションアドレスは使いません。画面上のラベルは、フィールド突き合わせで作成ウィザードと照合します。
+質問メールの送信先は、セッション中の Q&A (`settings.question_and_answer`) とは別です。作成時に指定する連絡先であり、API では登録の連絡先 `settings.contact_name` と `settings.contact_email` に載せます。値は登壇者の1人目の氏名と社内メールアドレスです。ホストの `zoom3@…` と、営業のファンクションアドレスは使いません。画面上のラベルは、フィールド突き合わせで作成ウィザードと照合します。初版では `settings.question_and_answer` を作成と更新に含めません。パネルにも出しません。
 
 ホストは WordPress のログインユーザーではありません。プラグインの「Zoom と接続」を、Webinar 権限のあるアカウントで許可したとき、以降の作成は `POST /users/me/webinars` です。
 
@@ -132,7 +132,9 @@ GatherPress Event
 | 更新 | `PATCH /webinars/{webinarId}` | ○ |
 | 削除 | `DELETE /webinars/{webinarId}` | ○ |
 | Panelist 追加 | `POST /webinars/{webinarId}/panelists` | ○ |
-| Panelist 削除 | 公式の削除メソッド | フィールド突き合わせでパスを確定する |
+| Panelist 削除 | `DELETE /webinars/{webinarId}/panelists/{panelistId}` | ○ |
+
+Panelist の削除は、外した人ごとに1回です。`panelistId` には、その人のメールアドレスを載せます。保存しているのは氏名とメールであり、差分もメールで取るためです。スコープは `webinar:delete:panelist` です。全員を消す `DELETE /webinars/{webinarId}/panelists` は使いません。残る人まで外れ、招待がやり直されるためです。同じメールで氏名だけ変わったときは、そのメールを1人用の削除で外し、追加し直します。Zoom に登壇者の更新メソッドがないためです。並び替えだけでは削除しません。1人目が変わったときの連絡先は、これまでどおり `settings.contact_name` と `settings.contact_email` です。この削除は、予定されている Webinar への反映です。開催中の部屋の役割は、ホストが Zoom の画面で扱います。
 
 Webinar の `type` は、単発の `5` だけを初版で使います。繰り返し (`6` / `9`) は使いません。
 
@@ -140,20 +142,32 @@ Webinar の `type` は、単発の `5` だけを初版で使います。繰り�
 
 参加 URL (`join_url`) は、結果に含めて保存してかまいません。
 
-開始 URL (`start_url`) は、有効期限のあるホスト用 URL です。恒久リンクとして案内に使いません。開く直前に再取得します。
+開始 URL (`start_url`) は、ホストがその Webinar を始めるためのリンクです。参加 URL とは別です。通常のユーザーでは、作成または `GET /webinars/{webinarId}` の応答から2時間で無効になります。接続する `zoom3@…` は、すでにいるライセンスユーザーなので、この2時間です。90日になるのは、API の `custCreate` で作ったユーザーだけです。期限が切れても Webinar 自体は終わりません。
 
-期限の時間数は、実装時に公式で確認します。
+「Zoom で開く」は、押したときに `GET /webinars/{webinarId}` を呼び、返った `start_url` をその場で開きます。スコープは `webinar:read:webinar` です。開始 URL は保存しません。期限の記録も持ちません。2時間をタイマーやキャッシュにしません。恒久リンクとして案内に使いません。
 
-指定しない項目は、接続した Zoom ユーザーのデフォルトに任せます。デフォルトが現在の作成 API で継承されるかは、次節の突き合わせで公式を確認します。
+作成で省略したとき、ユーザーのアカウント設定を継ぐと Zoom が公式にしているのは、2026年3月15日以降、次の7つです。`password`、`add_watermark`、`add_audio_watermark`、`language_interpretation`、`sign_language_interpretation`、`panelist_authentication`、`allow_host_control_participant_mute_state`。これらは省略したままにし、WordPress には持ちません。`default_password` は、この変更の対象外です。
+
+音声、待機室、チャット、投票、テンプレート、ブランディング、セッション中の Q&A は、この7つにありません。初版ではフィールドごと送りません。一部だけ送ると、残りのサブ項目が API の既定で上書きされます。`zoom3` の作成画面で毎回指定していると分かったものだけ、フィールド一式で足します。更新で送るのも、本ライブラリが持つ項目だけです。設定の塊を部分的には送りません。
 
 公式の入口は、下記です。
 
 * [Webinars](https://developers.zoom.us/docs/api/rest/reference/zoom-api/methods/#tag/Webinars)
 * [OAuth](https://developers.zoom.us/docs/integrations/oauth/)
 
-スコープの文字列は、ここには固定しません。
+スコープは、本人用のグラニュラーだけです。末尾が `:admin` のものは要求しません。アプリはユーザー管理の OAuth であり、公開マーケットには出さず、サーバー間認証にもしません。認可 URL の材料には、次だけを含めます。
 
-Zoom アプリの種類 (ユーザー管理 OAuth か、アカウント全体か) と、クラシックスコープかグラニュラースコープかが決まってから、作成と Panelist に必要な最小だけを要求します。`webinar:write:admin` 系は、他ユーザーの Webinar を扱うときだけです。初版は接続ユーザー自身の Webinar です。
+| 操作 | スコープ |
+| --- | --- |
+| 作成 | `webinar:write:webinar` |
+| 取得 | `webinar:read:webinar` |
+| 更新 | `webinar:update:webinar` |
+| 削除 | `webinar:delete:webinar` |
+| 登壇者の追加 | `webinar:write:panelist` |
+| 登壇者の削除 | `webinar:delete:panelist` |
+| 接続ユーザーのメール | `user:read:user` |
+
+リダイレクト URL とトークンの保存は、呼び出し側です。詳細はプラグイン仕様です。
 
 ## フィールドの突き合わせ (実装の前提)
 
@@ -171,9 +185,12 @@ Zoom アプリの種類 (ユーザー管理 OAuth か、アカウント全体か
 | 種別 | `type` = `5` |
 | 録画 | `settings.auto_recording` |
 | 質問メールの送信先 (1人目の氏名と社内メール) | `settings.contact_name` / `settings.contact_email` |
+| 参加登録 | `settings.approval_type`。`2` 不要 (既定) / `0` 必須・自動承認 / `1` 必須・手動承認。省略しない |
 | 登壇者の氏名とメール | Panelist 追加の別リクエスト |
 
-登録の要否、承認方法、音声、待機室、チャット、投票、テンプレート、ブランディングは、突き合わせで「毎回指定している」と分かったものだけを足します。
+参加登録は、呼び出し側がイベントごとに選んだ値です。未指定のときの既定は `2` (不要) です。作成と更新では、その値を `settings.approval_type` に含め、省略しません。省略すると、接続ユーザーの既定が使われる可能性があります。`2` では、イベントページの一つの `join_url` から入れます。Zoom は入室時に氏名とメールアドレスを尋ねます。`0` と `1` では、その `join_url` は Zoom の登録ページに回され、承認された人が自分用の URL を受け取ります。申込者を registrant として送ることは、初版の外です。
+
+セッション中の Q&A (`settings.question_and_answer`)、音声、待機室、チャット、投票、テンプレート、ブランディングは、上の7つに含まれません。初版ではフィールドごと送りません。`zoom3` の作成画面で毎回指定していると分かったものだけ、フィールド一式で足します。Q&A は `enable` だけでなく、匿名や投票などの項目が付きます。サブ項目を決めずに送ると、API の既定で上書きされます。
 
 ## Composer ライブラリの理由
 
@@ -189,15 +206,15 @@ Zoom アプリの種類 (ユーザー管理 OAuth か、アカウント全体か
 
 ## 本ライブラリの責務
 
-入力は、Webinar レコードと「今」の時刻です。出力は、次の操作と、操作後のレコードです。HTTP レスポンスの解釈も、渡されたステータスとボディから結果レコードを作るところまでです。
+入力は、Webinar レコードと「今」の時刻です。出力は、次の操作と、操作後のレコードです。HTTP レスポンスの解釈も、渡されたステータスとボディから、結果レコードを作るところまで、です。
 
 | 責務 | 内容 |
 | --- | --- |
-| 検証 | タイトルは空でない。開始はタイムゾーン付き。所要時間は正の分数。`auto_recording` は3値のいずれか。登壇者は1人以上で、各自が氏名とメールを持つ。1人目の氏名と社内メールを質問メールの送信先にする |
+| 検証 | タイトルは空でない。開始はタイムゾーン付き。所要時間の単位は分 (マイナスではない)。`auto_recording` は3値のいずれか。`approval_type` は `0` / `1` / `2` のいずれかで、無ければ `2`。登壇者は1人以上で、各自が氏名とメールを持つ。1人目の氏名と社内メールを質問メールの送信先にする |
 | 次の操作 | `create` / `update` / `delete` / `get` / `add_panelists` / `remove_panelists` / `none` |
 | リクエスト材料 | メソッド、パス、ボディ。`Authorization` は含めない。プラグインがトークンを付ける |
 | OAuth の材料 | 認可 URL、認可コード交換、リフレッシュのリクエスト材料。トークンは保存しない |
-| Panelist の差分 | 前回のメール一覧と、今回のメール一覧から、追加と削除を分ける |
+| Panelist の差分 | 前回と今回のメールで、追加と削除を分ける。氏名だけ変わったメールは、削除してから追加する。並び替えだけでは削除しない。削除のパスは `DELETE /webinars/{webinarId}/panelists/{panelistId}` で、`panelistId` はメール |
 | 結果の写像 | 成功で Webinar ID、UUID、`join_url`、ホストを埋める。失敗では ID を空のままにし、エラー文を残す。トークンとクライアントシークレットは残さない |
 
 質問メールの送信先は、独立した担当者フィールドにはしません。登壇者リストの1人目から取り、作成と更新のリクエストに含めます。1人目が変わったときも、Webinar の連絡先を更新します。
@@ -216,6 +233,7 @@ start_at
 timezone                 IANA
 duration_minutes
 auto_recording           none | cloud | local
+approval_type            0 | 1 | 2。既定は 2 (不要)
 panelists                順序あり。name と email。1人目が質問メールの送信先
 webinar_id               未作成なら空
 webinar_uuid             空可
@@ -230,10 +248,10 @@ last_error               空、または直近の失敗。トークンは入れ�
 | --- | --- |
 | `not_created` | Webinar ID が空 |
 | `synced` | 直近の作成または更新が成功し、そのとき送った項目から WordPress 側が変わっていない |
-| `dirty` | 成功のあと、WordPress 側の項目が変わった。まだ Zoom へ送っていない |
+| `dirty` | 成功のあと、WordPress 側の項目が変わった。まだ Zoom に送っていない |
 | `error` | 直近の API が失敗した。ID は、作成前なら空のまま |
 
-初版は一方向です。WordPress から Zoom に作成・更新します。Zoom で直接直した内容を検知して取り込みません。取り込みは、呼び出し側が再取得を明示したときだけです。再取得は表示用であり、WordPress のタイトルや日時を Zoom の値で上書きしません。
+初版は一方向です。WordPress から Zoom に作成・更新します。Zoom で直接直したタイトルや日時は検知して取り込みません。開催の開始と終了だけは、呼び出し側が `webinar.started` と `webinar.ended` で受けます。再取得は表示用であり、WordPress のタイトルや日時を Zoom の値で上書きしません。
 
 同じ項目での更新を、成功のたびに無条件で繰り返しません。`dirty` のときだけ `update` を返します。
 
@@ -245,9 +263,12 @@ last_error               空、または直近の失敗。トークンは入れ�
 | --- | --- |
 | 接続 | 管理画面の「Zoom と接続」。Webinar 権限のあるアカウントで許可し、リフレッシュ・トークンをサイト設定に保存する。WordPress 管理者とは別人でよい |
 | 実行 | 本ライブラリが返したリクエストだけを Zoom に送る |
-| 関連 | GatherPress のイベントに、プロバイダ、Webinar ID、UUID、`join_url`、`status` を保存する。1イベントにつき Webinar は1つ |
+| 関連 | GatherPress のイベントに、プロバイダ、Webinar ID、UUID、`join_url`、`status` を保存する。プロバイダの値はコードが `zoom` と書く。公開の参加 URL は `Event::set_online` で `gatherpress_online_event_link` に書く。1イベントにつき Webinar は1つ |
+| 日時 | `gatherpress_datetime_start`、`gatherpress_datetime_end`、`gatherpress_timezone` を読む。`duration_minutes` は開始と終了の差（分）。JSON の `gatherpress_datetime` と GMT のキーは渡さない。終日は、開始 0:00 と暦日数 × 1440 分を渡して初版から登録する。Zoom に終日フラグはない |
 | 登壇者 | 順序付きで保存する。1人目は質問メールを受け取る営業メンバーで、社内メールアドレスを持つ。Zoom には Panelist として渡し、同じ氏名とメールを登録の連絡先にも載せる |
-| 画面 | 接続状態、未作成 / 同期済み / 未同期 / 失敗、録画方式、新規登録、更新、再取得、Zoom で開く |
+| 画面 | 接続状態、未作成 / 同期済み / 未同期 / 失敗、開催 (未開始 / 開催中 / 終了)、録画方式、参加登録 (ラジオ。既定は不要)、新規登録、更新、削除、再取得、Zoom で開く |
+| 開催 | `webinar.started` と `webinar.ended` を受ける。終了で公開の参加 URL を空にする。ページ表示のたびに Zoom には問い合わせない |
+| 削除 | パネルの明示操作だけ。ゴミ箱への移動と完全削除 (30 日後の自動削除を含む) では Zoom を削除しない |
 | 効果測定 | 数値は持たない。必要なら Zoom のダッシュボードへのリンクだけ |
 
 GatherPress のフォークには、この画面のコードを入れません。
@@ -257,15 +278,15 @@ GatherPress のフォークには、この画面のコードを入れません�
 イベント公開の成果物は、Zoom 連携のあとでプラグイン側に足します。
 
 * CoverArt は、メディアライブラリの添付であり、イベントの資産です。Zoom のサムネイルにコピーするのは、その後の任意です。
-* QR は qr.quel.jp を使わず、WordPress 内で作ります。飛び先は Zoom の ID ではなく、GatherPress のイベント URL です。経路ごとに UTM だけを変えます (flyer / mail / web)。中央のロゴ、色、SVG と PNG はプラグインの仕事です。
-* フライヤー PDF と配配メール用のヘッダーは、CoverArt と QR が揃ってから検討します。配配メールへの送信そのものは、このプラグインの外です。
+* QR は、本ライブラリの外です。後続の QR コード・ジェネレーターが WordPress 内で作り、qr.quel.jp は使いません。飛び先は GatherPress のイベント URL です。`utm_medium` は `qr`、`utm_campaign` はイベントのスラッグ、`utm_source` はユーザーが管理する用語で、新規の既定はブランクです。用語集は S2J Webinar の設定には置きません。色、中央のアイコン、SVG と PNG は、そのジェネレーターの仕事です。モジュールは四角に固定します。詳細はプラグイン仕様です。
+* フライヤー PDF と配配メール用のヘッダーは、CoverArt と QR がそろってから検討します。配配メールへの送信そのものは、このプラグインの外です。
 * 公開前チェックリスト (Webinar、CoverArt、QR、フライヤー) は、プラグインの表示です。
 
 ## 設計方針
 
 本ライブラリは [kis-wordpress エコシステム仕様](https://github.com/stein2nd/kis-wordpress/blob/main/docs_mod/specs.md) と同じく、FOP + Clean Coding を基本とします。Clean Architecture の定型分割は採用しません。
 
-データの中身は、純粋関数と不変レコードに閉じます。接続先は、プロバイダ名から関数を引く表です。今実装するのは Zoom だけです。使わない接続先の空実装は置きません。
+データの中身は、純粋関数と不変レコードに閉じます。接続先は、プロバイダ名から関数を引く表です。今実装するのは Zoom だけです。使わない接続先の空実装は置きません。プロバイダ名は、呼び出し側がコードで `zoom` と渡します。管理画面の入力にはしません。
 
 | 借用する原則 | 本ライブラリでの意味 |
 | --- | --- |
@@ -291,7 +312,7 @@ KIS のサイトは、このプラグインのユーザーの一つです。Zoom
 ## 実装順
 
 1. 本ドラフトの合意。
-2. `zoom3` の作成画面の入力項目と、Zoom API のフィールドを突き合わせる。スコープと Panelist 削除のパスを、そのとき確定する。
+2. `zoom3` の作成画面の入力項目と、Zoom API のフィールドを突き合わせる。
 3. 本 repo でスケルトンと純関数の初版 (PHPUnit、WordPress なし、HTTP なし)。
 4. プラグインが Composer で require する。OAuth 接続と、GatherPress イベントからの Webinar 作成・結果の保存をつなぐ。
 5. 更新、削除、再取得、Panelist の差分、録画方式を足す。
@@ -305,29 +326,46 @@ KIS のサイトは、このプラグインのユーザーの一つです。Zoom
 * 計算は本ライブラリ、接続と保存は S2J Webinar、イベントの画面は GatherPress フォークである。フォーク本体は改変しない。
 * ホストは、OAuth で接続した Zoom ユーザーであり、WordPress 管理者ではない。
 * 初版の API は、Webinar の作成、取得、更新、削除と、Panelist の追加・削除である。Meeting は、作らない。
+* Panelist の削除は `DELETE /webinars/{webinarId}/panelists/{panelistId}` である。`panelistId` は外した人のメールである。全員削除は使わない。
 * 録画方式は、`none` / `cloud` / `local`。ファイルは、Zoom に置く。
 * 質問メールの送信先は、登壇者の1人目の氏名と社内メールアドレスである。登録の連絡先として Zoom に送る。ホストと営業ファンクションアドレスは使わない。
-* 同期は、WordPress から Zoom への一方向である。再取得は、表示用であり、イベントの項目を上書きしない。
+* セッション中の Q&A (`settings.question_and_answer`) は初版では送らない。公式の継承リストにはなく、フィールドごと省略する。
+* 作成で省略してアカウント設定を継ぐのは、Zoom が公式に挙げた7項目だけである。`password`、`add_watermark`、`add_audio_watermark`、`language_interpretation`、`sign_language_interpretation`、`panelist_authentication`、`allow_host_control_participant_mute_state`。WordPress には持たない。更新は、本ライブラリが持つ項目だけを送る。
+* 同期は、WordPress から Zoom への一方向である。開始と終了だけは `webinar.started` と `webinar.ended` で受ける。再取得は、表示用であり、イベントの項目を上書きしない。
+* ゴミ箱への移動と完全削除では Zoom を削除しない。Zoom の削除は、パネルの明示操作だけである。
 * 効果測定、申込者の registrant 登録、CoverArt、QR、フライヤーは、初版の外である。
+* 参加登録はイベントごとに選ぶ。既定は不要 (`approval_type` = `2`)。選んだ値は省略せず送る。
 * OAuth クライアントは、サイト設定であり、配布物に含めない。
 * ライセンスは、プラグインとライブラリの両方で GPL-3.0-or-later。
 * パッケージ名は `s2j/webinar-service`。プラグインのスラッグは `s2j-webinar`。
+* プロバイダはコードのアダプターである。初版は `zoom` だけを実装し、管理画面では選ばせない。
+* OAuth はユーザー管理アプリである。スコープは本人用のグラニュラーだけを要求する。
+* 開始 URL (`start_url`) は保存しない。「Zoom で開く」は、押したときに `GET /webinars/{webinarId}` の `start_url` をその場で開く。通常ユーザーの期限は2時間であり、タイマーにはしない。
+* 開始・終了・タイムゾーンは GatherPress の `gatherpress_datetime_start`、`gatherpress_datetime_end`、`gatherpress_timezone` から渡される。所要時間はその差（分）である。終日は開始 0:00 と暦日数 × 1440 分で、初版から登録する。
 
 ## 未決事項
 
 * `zoom3` が毎回入力している作成画面の項目。突き合わせが終わるまで、上の項目表は仮。
-* OAuth のアプリ種別と、要求するスコープの文字列。
-* Panelist 削除の公式パス。
-* `start_url` の有効期限。
-* 作成時に省略したフィールドが、接続ユーザーの既定を継承するか。
-* セッション中の Q&A (`settings.question_and_answer`) を初版で送るか、会社の既定に任せるか。質問メールの送信先とは別である。
-* 参加登録を WordPress から必須にするか。現行の案内はイベントページが入口であり、初版には含めない。
-* QR の UTM 名 (`flyer` / `mail` / `web` で足りるか)。プラグインの後続で決める。
 
 ## 改訂履歴
 
 | 日付 | 内容 |
 | --- | --- |
-| 2026-10-03 | 初版ドラフト。GatherPress をイベント UI、本ライブラリを Zoom Webinar のリクエスト組立、呼び出し側プラグインを未作成のコンパニオンとする。一方向同期、録画は Zoom、質問受付はイベントのメタデータ、QR と CoverArt は後続、と記録 |
-| 2026-10-03 | 質問受付を、質問メールの送信先に改めた。登壇者1人目の社内メールを `contact_name` / `contact_email` で Zoom に送る。ホストと営業ファンクションアドレスは使わない |
+| 2026-10-03 | 初版ドラフト。GatherPress をイベント UI、本ライブラリを Zoom Webinar のリクエスト組立、呼び出し側プラグインを未作成のコンパニオンとする。一方向同期、録画は Zoom、質問受け付けはイベントのメタデータ、QR と CoverArt は後続、と記録 |
+| 2026-10-03 | 質問受け付けを、質問メールの送信先に改めた。登壇者1人目の社内メールを `contact_name` / `contact_email` で Zoom に送る。ホストと営業ファンクションアドレスは使わない |
 | 2026-10-03 | 呼び出し側プラグイン [s2j-webinar](https://github.com/stein2nd/s2j-webinar) のリポジトリができた。仕様は当該 repo の `docs_mod/specs.md` |
+| 2026-10-05 | 参加登録は不要とする。作成と更新で `settings.approval_type` に `2` を送り、省略しない、と記録 |
+| 2026-10-05 | 参加登録はイベントごとに選ぶ。既定は `2`。選んだ値を省略せず送る、と記録 |
+| 2026-10-05 | ゴミ箱への移動と完全削除では Zoom を削除しない。Zoom の削除はパネルの明示操作だけである、と記録 |
+| 2026-10-05 | セッション中の Q&A は初版では送らない。接続ユーザーの既定に任せる、と記録 |
+| 2026-10-05 | QR の `utm_source` はユーザー管理で既定ブランク。用語集は後続の QR コード・ジェネレーターが持ち、本ライブラリと S2J Webinar の設定には置かない、と記録 |
+| 2026-10-05 | プロバイダ名は呼び出し側がコードで `zoom` と渡す。管理画面の入力にはしない、と記録 |
+| 2026-10-05 | OAuth はユーザー管理アプリとする。スコープは本人用のグラニュラーだけを認可 URL の材料に含める、と記録 |
+| 2026-10-05 | 公開の参加 URL は `Event::set_online` で `gatherpress_online_event_link` に書く、と記録 |
+| 2026-10-05 | 開催の開始と終了は `webinar.started` と `webinar.ended` で受ける。タイトルと日時の一方向はそのまま、と記録 |
+| 2026-10-05 | 日時は `gatherpress_datetime_start`、`gatherpress_datetime_end`、`gatherpress_timezone` から渡す。所要時間はその差（分）。終日は本ライブラリを呼ばない、と記録 |
+| 2026-10-05 | 終日も初版で登録する。開始は 0:00、所要時間は暦日数 × 1440 分。Zoom に終日フラグはない、と記録 |
+| 2026-10-05 | QR のモジュールは四角に固定する。形状の選択は出さない、と記録 |
+| 2026-10-05 | Panelist の削除は `DELETE /webinars/{webinarId}/panelists/{panelistId}` とする。`panelistId` はメール。全員削除は使わない、と記録 |
+| 2026-10-05 | 開始 URL は保存しない。「Zoom で開く」は押したときに `GET /webinars/{webinarId}` の `start_url` を開く。通常ユーザーの期限は2時間で、タイマーにはしない、と記録 |
+| 2026-10-05 | 作成で省略してアカウント設定を継ぐのは、Zoom が公式に挙げた7項目だけとする。それ以外はフィールドごと送らず、更新は本ライブラリの項目だけ送る、と記録 |

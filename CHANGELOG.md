@@ -2,6 +2,19 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-05
+
+### Changed
+
+* `docs_mod/service_spec.md` の未決を決定に更新
+    * Panelist の削除は `DELETE /webinars/{webinarId}/panelists/{panelistId}`。`panelistId` はメール。全員削除は使わない
+    * 参加登録はイベントごと。デフォルトは不要 (`approval_type` = `2`)。選んだ値は省略せず送る
+    * セッション中の Q&A は初版では送らない。作成でアカウント設定を継ぐのは、Zoom が公式に挙げた7項目だけ
+    * 開始 URL は保存しない。「Zoom で開く」は押したときに取得する。通常ユーザーの期限は2時間で、タイマーにはしない
+    * OAuth はユーザー管理アプリ。スコープは本人用のグラニュラーだけ。プロバイダはコードで `zoom` と渡す
+    * 日時は GatherPress の開始・終了・タイムゾーンから渡す。所要時間はその差 (分)。終日は開始を0時とし、所要時間は暦日数×1440分
+    * 開始と終了は `webinar.started` と `webinar.ended` で受ける。ゴミ箱と完全削除では Zoom を削除しない
+
 ## 0.0.1 - 2026-10-04
 
 ### Changed
