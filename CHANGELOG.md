@@ -2,6 +2,15 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-07
+
+### Changed
+
+* セッション中の Q&A は作成で `settings.question_and_answer` を一式で送る。`enable` = `true`、`allow_anonymous_questions` = `true`、`answer_questions` = `only`。コメントと upvote は送らない
+* HD は `settings.hd_video` = `false`。出席者の参加時認証は `settings.meeting_authentication` = `false`
+* チャットのデフォルト対象は送らない。作成 API に一対一のフィールドがない
+* `panelist_authentication` と `enforce_login` は使わない
+
 ## 0.0.1 - 2026-10-06
 
 ### Changed
