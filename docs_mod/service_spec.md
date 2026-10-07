@@ -296,8 +296,44 @@ GatherPress のフォークには、この画面のコードを入れません�
 * フライヤー PDF と配配メール用のヘッダーは、CoverArt と QR がそろってから検討します。配配メールへの送信そのものは、このプラグインの外です。
 * 公開前チェックリスト (Webinar、CoverArt、QR、フライヤー) は、プラグインの表示です。
 * 招待状のソース追跡は、QR の `utm_source` と同じ用語です。登録ページのバナーは CoverArt ができてから、登録ページを使うときに出します。
-* アンケートの設問は、[S2J Webinar Survey Service](https://github.com/stein2nd/s2j-webinar-survey-service) が検査します。仕様は [docs_mod/service_spec.md](https://github.com/stein2nd/s2j-webinar-survey-service/blob/main/docs_mod/service_spec.md) です。本ライブラリは、作成直後に、使ってよいと判定された文書をアンケートとして付ける役です。設問の文面と助言は持ちません。
+* アンケートの設問は、[S2J Webinar Survey Service](https://github.com/stein2nd/s2j-webinar-survey-service) が検査します。仕様は [docs_mod/service_spec.md](https://github.com/stein2nd/s2j-webinar-survey-service/blob/main/docs_mod/service_spec.md) です。本ライブラリは、作成直後に、使ってよいと判定された文書を `PATCH /webinars/{webinarId}/survey` の材料に写す役です。設問の文面と助言は持ちません。写像の詳細は下記です。
 * 登壇者のプロフィール台帳、確認メールとリマインダーの「最新情報」、出席者・欠席者メールの「末尾の告知」、待機室の画像と動画、投票の流用、ライブストリームの URL とキー、チャットのデフォルト対象、登録者数の Slack や LineWorks への通知は、それぞれの API がイベント単位で受け付けると分かってから足します。連携タブの他製品接続は、本ライブラリに入れません。
+
+## アンケート添付の写像
+
+操作は `PATCH /webinars/{webinarId}/survey` (`webinarSurveyUpdate`) です。投票 (poll) と登録の質問は使いません。`GET /report/webinars/{webinarId}/survey` は回答レポートであり、設問の作成・更新ではありません。
+
+`custom_survey.questions[].type` の enum は次です。初版で送るのは先頭の5つだけです。
+
+| Zoom UI | API `type` | 初版 |
+| --- | --- | --- |
+| 単一選択 | `single` | 送る |
+| 複数選択 | `multiple` | 送る |
+| 短い回答 | `short_answer` | 送る |
+| 長い回答 | `long_answer` | 送る |
+| レーティングスケール | `rating_scale` | 送る |
+| マッチング | `matching` | 送らない |
+| ランク順 | `rank_order` | 送らない |
+| 空欄に記入する | `fill_in_the_blank` | 送らない |
+
+文書から Zoom へのキーの写像は、次のとおりです。
+
+| 文書 | Zoom |
+| --- | --- |
+| `prompt` | `name` |
+| `required` | `answer_required` |
+| `single` + `choices` | `type` = `single`、`answers` = `choices` |
+| `multiple` + `choices` | `type` = `multiple`、`answers` = `choices` |
+| `short` | `type` = `short_answer`。`answer_min_character` / `answer_max_character` は送らない (API の既定) |
+| `long` | `type` = `long_answer`。文字数は同上 |
+| `rating` の `score_min` | `rating_min_value` |
+| `rating` の `score_max` | `rating_max_value` |
+| `rating` の `label_low` | `rating_min_label` |
+| `rating` の `label_high` | `rating_max_label` |
+| `internal_name` | 調査の内部名まわり。設問の `type` ではない |
+| (未設定の見出し) | `custom_survey.title` はウェビナータイトル。説明は空 |
+
+`show_as_dropdown`、重み、画像、スキップロジックは送りません。画像、スキップ、`matching`、`rank_order`、`fill_in_the_blank` は初版以降の検討です。
 
 ## 設計方針
 
@@ -390,3 +426,5 @@ KIS のサイトは、このプラグインのユーザーの一つです。Zoom
 | 2026-10-06 | アンケート設問の検査は [s2j-webinar-survey-service](https://github.com/stein2nd/s2j-webinar-survey-service) に分けた、と記録 |
 | 2026-10-07 | Q&A は作成で `question_and_answer` 一式を送る。HD は `hd_video` = `false`。チャットのデフォルト対象は送らない、と記録 |
 | 2026-10-07 | 出席者の参加時認証は `settings.meeting_authentication` = `false`。`panelist_authentication` と `enforce_login` は使わない、と記録 |
+| 2026-10-07 | アンケート添付の写像は本ライブラリが持つ。初版は single / multiple / short / long / rating。公式 webinar survey 更新で型名確定まで添付しない。画像・スキップ・マッチング・ランク・空欄記入は初版以降の検討、と記録 |
+| 2026-10-07 | 初版5種の `type` を確定 (`single` / `multiple` / `short_answer` / `long_answer` / `rating_scale`)。文書から `name` / `answer_required` / `answers` / `rating_*` への写像表を記録。Report API は回答用、と記録 |

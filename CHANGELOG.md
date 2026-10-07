@@ -10,6 +10,9 @@
 * HD は `settings.hd_video` = `false`。出席者の参加時認証は `settings.meeting_authentication` = `false`
 * チャットのデフォルト対象は送らない。作成 API に一対一のフィールドがない
 * `panelist_authentication` と `enforce_login` は使わない
+* アンケート添付は `PATCH /webinars/{webinarId}/survey` の材料に写す。回答レポートの GET は使わない
+* 初版の設問型は `single` / `multiple` / `short_answer` / `long_answer` / `rating_scale`。`prompt` は `name`、`required` は `answer_required`、選択肢は `answers`
+* `matching`、`rank_order`、`fill_in_the_blank`、画像、スキップロジックは送らない
 
 ## 0.0.1 - 2026-10-06
 
