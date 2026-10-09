@@ -18,7 +18,7 @@
 
 | 機能名 | 実装済み/未実装 | 実装％ | 完了条件 |
 | --- | --- | --- | --- |
-| 仕様分割 (`docs_mod/`) | 起草 | — | Survey/Similarity に倣った分割。合意後 `docs/` に |
+| 仕様分割 (`docs/`) | 確定 | — | Survey/Similarity に倣った分割。正本は `docs/`。改訂案は `docs_mod/` |
 | Composer スケルトン (`src/` 公開 API) | 未実装 | 0 | [php_api_spec.md](./interfaces/php_api_spec.md) |
 | レコード正規化 + 検証 | 未実装 | 0 | [record_spec.md](./core/record_spec.md) / [validation_spec.md](./core/validation_spec.md) |
 | プロバイダ・レジストリ | 未実装 | 0 | [provider_spec.md](./core/provider_spec.md)。初版は `zoom` のみ |

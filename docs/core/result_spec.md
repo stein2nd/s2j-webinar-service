@@ -6,6 +6,15 @@
 
 本ファイルは **Zoom (`zoom`) 記述子** の `map_result` 正本です。公開入口は `map_webinar_response` ([../interfaces/php_api_spec.md](../interfaces/php_api_spec.md))。レジストリは [provider_spec.md](./provider_spec.md)。
 
+## 戻り形
+
+```text
+record      更新後 WebinarRecord
+start_url?  任意。揮発。レコード正本には書かない
+```
+
+公開の `map_webinar_response` は、この形に `deficiencies` を足します。ファサードが HTTP ボディから `start_url` を別途抜きません。
+
 ## 責務
 
 * 渡された HTTP ステータスとボディから、更新後レコードを作ること。
@@ -16,7 +25,7 @@
 * HTTP の実行
 * リトライ (必要ならプラグインが再 `plan`)
 * `start_url` の永続化 (保存しない。プラグインが「Zoom で開く」でその場だけ使う)
-* `dirty` / `synced` の業務判定 (呼び出し側。本写像は成功・失敗に応じた status だけを書く)
+* `dirty` / `synced` の **業務判定** (どの項目が変わったか。呼び出し側)。本写像は HTTP 成否に応じた status だけを書いてよい
 
 ## 成功・失敗の判定
 

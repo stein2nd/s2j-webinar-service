@@ -6,6 +6,7 @@
 /wordpress export-ignore
 /tests export-ignore
 /docs export-ignore
+/docs_mod export-ignore
 /docs_old export-ignore
 /.github export-ignore
 /.vscode export-ignore

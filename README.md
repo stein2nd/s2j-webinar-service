@@ -4,13 +4,13 @@ GatherPress のイベントから Zoom Webinar を作成・更新するリクエ
 
 ## 仕様
 
-合意前の仕様キットは [`docs_mod/`](docs_mod/README.md) です。
+確定仕様の正本は [`docs/`](docs/specs.md) です。大きな改訂案は [`docs_mod/`](docs_mod/README.md) で起草します。
 
-* 索引: [docs_mod/specs.md](docs_mod/specs.md)
-* 統合見取り図: [docs_mod/service_spec.md](docs_mod/service_spec.md)
-* 公開面 (想定): [docs_mod/interfaces/php_api_spec.md](docs_mod/interfaces/php_api_spec.md)
+* 索引: [docs/specs.md](docs/specs.md)
+* 統合見取り図: [docs/service_spec.md](docs/service_spec.md)
+* 公開面 (想定): [docs/interfaces/php_api_spec.md](docs/interfaces/php_api_spec.md)
 
-構成は [S2J Webinar Survey Service](https://github.com/stein2nd/s2j-webinar-survey-service) / [S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) の `docs/` に倣っています。合意後は `docs/` に移します。
+構成は [S2J Webinar Survey Service](https://github.com/stein2nd/s2j-webinar-survey-service) / [S2J Similarity Service](https://github.com/stein2nd/s2j-similarity-service) の `docs/` に倣っています。
 
 ## パッケージ
 

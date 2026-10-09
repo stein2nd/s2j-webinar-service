@@ -1,6 +1,6 @@
 # S2J Webinar Service - サービス仕様 (統合見取り図)
 
-確定前の統合見取り図として `docs_mod/` に置きます。検査・操作・写像の **規則の正本は常に `core/`** です。本書の表は要約であり、食い違う場合は `core/` を直し、本書を追随させます。契約は `contracts/`、公開面は `interfaces/` です。索引は [specs.md](./specs.md) です。
+統合見取り図です。検査・操作・写像の **規則の正本は常に `core/`** です。本書の表は要約であり、食い違う場合は `core/` を直し、本書を追随させます。契約は `contracts/`、公開面は `interfaces/` です。索引は [specs.md](./specs.md) です。
 
 記録日は2026-10-03、分割起草は2026-10-09です。
 
@@ -104,11 +104,10 @@ FOP + Clean Coding です。パッケージ名 `s2j/webinar-service`、名前空
 
 ## 実装順
 
-1. 本 `docs_mod/` キットの合意 → `docs/` に移行。
-2. スケルトンと純関数の初版 (PHPUnit、WP なし、HTTP なし)。
-3. プラグインが Composer require し、OAuth と作成・保存をつなぐ。
-4. 更新・削除・再取得、および Panelist、survey 写像を足す。
-5. CoverArt / QR 等はプラグイン後続。
+1. スケルトンと純関数の初版 (PHPUnit、WP なし、HTTP なし)。
+2. プラグインが Composer require し、OAuth と作成・保存をつなぐ。
+3. 更新・削除・再取得、および Panelist、survey 写像を足す。
+4. CoverArt / QR 等はプラグイン後続。
 
 ## 改訂履歴
 
@@ -121,7 +120,8 @@ FOP + Clean Coding です。パッケージ名 `s2j/webinar-service`、名前空
 | 2026-10-05 | 参加登録デフォルトをいったん `2` と記録 (後続で必須・自動承認に変更) |
 | 2026-10-06 | 新規登録は二段階、スケジュール画面項目表、参加登録デフォルトを必須・自動承認 (`0`)、録画デフォルト cloud、アンケート検査を Survey Service に分離、と記録 |
 | 2026-10-07 | Q&A 一式送信、HD false、チャット非送信、meeting_authentication false、アンケート写像と type 確定、と記録 |
-| 2026-10-09 | Similarity / Survey Service に倣い `docs_mod/` を分割。規則正本は `core/`。Survey リンクを `docs/specs.md` に更新。参加登録デフォルトは `0` で統一、と記録 |
+| 2026-10-09 | Similarity / Survey Service に倣い仕様を分割。規則正本は `core/`。Survey リンクを `docs/specs.md` に更新。参加登録デフォルトは `0` で統一、と記録 |
+| 2026-10-09 | 合意済み仕様キットを `docs_mod/` から `docs/` に移行、と記録 |
 | 2026-10-09 | 監査 BP を反映: survey 入口一本化、context / operations 形、diff 主体、dirty 所有、provider 不足、get 後 status、duration ≥1、start_at 例、status 正規化、と記録 |
 | 2026-10-09 | 再監査 BP: attach_survey の step 必須、`webinar:update:survey`、単一 plan 図、成功は2xx、`none` 廃止、dirty は本体のみ、get/delete 失敗写像、と記録 |
 | 2026-10-09 | 再々監査 BP: id 空の error 維持、失敗で列中断、survey ボディ包み、列順、intend_retry 注記、OAuth scope 一括、と記録 |

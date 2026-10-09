@@ -16,13 +16,14 @@
 
 ## 公開 API (初版)
 
-公開関数は [../core/provider_spec.md](../core/provider_spec.md) のレジストリを引く **薄いファサード** です。プロバイダ固有のパス / body / 応答解釈 / OAuth 材料は、記述子の Adapter に閉じ、公開面に Zoom 専用分岐を置きません。
+うち **build / map / OAuth** は [../core/provider_spec.md](../core/provider_spec.md) のレジストリを引く **薄いファサード** です。プロバイダ固有のパス / body / 応答解釈 / OAuth 材料は、記述子の Adapter に閉じます。レジストリ・ファサードと共通 Core に Zoom 専用分岐を置きません。任意ヘルパは非 SoT ・ Zoom 専用として明示した場合のみ可です。`normalize` / `validate` / `plan` / `diff_panelists` は共通 Core であり、レジストリ非経由です。
 
-| 公開関数 | 委譲先 (記述子) |
-| --- | --- |
-| `build_webinar_request` | `lookupProvider(record.provider)` → `build_request` |
-| `map_webinar_response` | 同上 → `map_result` |
-| `build_oauth_*` | 初版は `lookupProvider( 'zoom' )` → `oauth_materials` (レコードなし。他プロバイダ追加時に拡張) |
+| 種別 | 公開関数 | 委譲先 (記述子) |
+| --- | --- | --- |
+| レジストリ・ファサード | `build_webinar_request` | `lookupProvider(record.provider)` → `build_request` |
+| レジストリ・ファサード | `map_webinar_response` | 同上 → `map_result` |
+| レジストリ・ファサード | `build_oauth_*` | 初版は `lookupProvider( 'zoom' )` → `oauth_materials` (レコードなし。他プロバイダ追加時に拡張) |
+| 共通 Core | `normalize_webinar_record` / `validate_webinar_record` / `plan_webinar_operations` / `diff_panelists` | (なし) |
 
 ### normalize_webinar_record / validate_webinar_record
 
@@ -46,6 +47,8 @@ function validate_webinar_record(array $record): array;
 ### plan_webinar_operations
 
 規則とコンテキストキー、`operations[]` の形は [../core/operation_spec.md](../core/operation_spec.md)。
+
+**本関数は `validate` を呼びません。** 呼び出し側が不足ゼロのレコードを渡すのが通常です。
 
 Panelist 差分は本関数が `previous_panelists` から内部で計算します ([../core/panelist_spec.md](../core/panelist_spec.md) と同じ規則。二重実装しない)。
 
@@ -108,6 +111,7 @@ function diff_panelists(array $previous, array $current): array;
 | --- | --- |
 | 成功 | `deficiencies` は空。`record` / 任意 `start_url` |
 | 未知 `provider` | `deficiencies: ['provider_unsupported']`。`record` 不変、`status` 不変、`start_url` なし |
+| 未知の `$op` | `InvalidArgumentException` (プログラマー誤り。build と同じ) |
 
 `start_url` は揮発です。レコード正本には書きません。規則は [../core/result_spec.md](../core/result_spec.md) (Zoom 記述子の正本)。
 
@@ -126,9 +130,9 @@ function diff_panelists(array $previous, array $current): array;
 function map_webinar_response(string $op, int $http_status, ?array $body, array $record): array;
 ```
 
-### build_survey_update_request (任意・ Zoom 専用)
+### build_survey_update_request (任意ヘルパ・非 SoT ・ Zoom 専用)
 
-公開の正本入口は `build_webinar_request( 'attach_survey', … )` です。**レジストリ汎用ではありません。** 利便のために置く場合は、初版 **Zoom 固定** (`lookupProvider( 'zoom' )` → `build_request( 'attach_survey', … )` 相当) で [../core/survey_map_spec.md](../core/survey_map_spec.md) に委譲するだけにし、規則を分岐させません。戻り形は `build_webinar_request` と同じ (`material` / `deficiencies`)。置かない選択も可です。
+公開の **正本入口 (SoT)** は `build_webinar_request( 'attach_survey', … )` です。本関数はレジストリ汎用ではなく、規則の正本でもありません。利便のために置く場合は、初版 **Zoom 固定** (`lookupProvider( 'zoom' )` → `build_request( 'attach_survey', … )` 相当) で [../core/survey_map_spec.md](../core/survey_map_spec.md) に委譲するだけにし、規則を分岐させません。戻り形は `build_webinar_request` と同じ (`material` / `deficiencies`)。置かない選択も可です。
 
 ```php
 /**

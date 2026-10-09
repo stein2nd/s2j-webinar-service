@@ -21,9 +21,11 @@ WordPress も Zoom ライブも使わずに、検証・操作計画・差分・�
 * 不足コードは、各コードについて真になる入力を1件以上 (`duration_invalid` は0分、`provider_unsupported` は非 zoom)。`build_webinar_request` と `map_webinar_response` の未知 provider も同コード
 * `attach_survey` で `survey_document` 欠落の build 直呼びは `InvalidArgumentException`
 * id 非空前提 op (`update` 等) で `webinar_id` 空の build 直呼びは `InvalidArgumentException` (不足コードにしない)
-* `topic` / `start_at` / `timezone` 欠落→`""`、`duration_minutes` 欠落→`0`。`auto_recording` / `approval_type` のデフォルト埋め。id 空+last_error→`error` 維持、id 空のみ→`not_created`、id 非空で status 欠落→`dirty`
-* `dirty` の場合だけ `update`、`synced` では無条件 update なし。列順: create|update → remove → add → attach_survey → get
-* `survey_document` 非空で `attach_survey` が計画に載り、要素に `survey_document` が必須。ボディは `custom_survey` 包み。create のみ (文書なし) でも計画できる
+* `topic` / `start_at` / `timezone` 欠落→`""`、`duration_minutes` 欠落→`0`。`auto_recording` / `approval_type` のデフォルト埋め。id 空 + last_error →`error` 維持、id 空のみ→`not_created`、id 非空で status 欠落→`dirty`
+* `plan` は再 validate しない。不足ゼロ前提の入力で分岐を固定する
+* `dirty` の場合だけ `update`、`synced` では無条件 update なし。列順: create|update → remove → add → attach_survey → get。`dirty` / create でも `intend_get` なら末尾に `get` (`delete` 単独は付けない)
+* `survey_document` 非空で `attach_survey` が計画に載り、要素に `survey_document` が必須。ボディは `custom_survey` 包み。create のみ (文書なし) でも計画できる。SoT 入口は `build_webinar_request( 'attach_survey' )`
+* `map` の未知 `op` は `InvalidArgumentException`。`map_result` 戻りは `{ record, start_url? }`
 * 何もしない場合は空配列 (`none` を返さない)
 * Panelist: 追加・削除・氏名のみ変更 (削除+追加)、並び替えだけでは差分なし。`remove_panelists` は1メール=1要素
 * Panelist メール: 差分・リクエストでは trim + ASCII 小文字 (`Taro@…` と `taro@…` は同一)。`normalize` 後のレコードは入力の大小を維持。add ボディは小文字化した `{ "panelists": [ { "name", "email" } ] }` スナップショット1件以上

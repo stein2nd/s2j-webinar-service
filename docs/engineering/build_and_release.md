@@ -12,7 +12,7 @@
 ## CHANGELOG
 
 * ユーザーまたは呼び出し側に見える変更を unreleased に書く。
-* `docs_mod/` のみの起草は、`docs/` に反映するまで CHANGELOG に載せなくてよい (いまは起草段階のため、キット追加は unreleased に一行あってよい)。
+* `docs_mod/` のみの起草は、`docs/` に反映するまで CHANGELOG に載せなくてよい。
 
 ## export-ignore
 

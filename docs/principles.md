@@ -8,7 +8,7 @@
 
 ### 1. Source of Truth
 
-* 規則の正本は、`docs_mod/core/` (合意後は `docs/core/`) である。
+* 規則の正本は、`docs/core/` である。
 * 型とフィールドの正本は、`contracts/` である。
 * README は最短手順であり、契約と矛盾させない。
 
@@ -16,7 +16,8 @@
 
 * Core は、グローバル状態、ネットワーク、ファイルシステムに依存しない。
 * 「今」が必要な場合は、呼び出し側が時刻を引数で渡す (初版の操作計画は主に渡された `status` とレコード内容で足りる)。
-* `dirty` / `synced` の判定は呼び出し側。ライブラリは受け取った `status` を推測し直さない。
+* `dirty` / `synced` の **業務判定** (どの項目が変わったか) は呼び出し側。ライブラリは受け取った `status` をフィールド差分から推測し直さない。
+* 応答写像は HTTP 成否に応じて `synced` / `error` / `not_created` 等を書いてよい (正本は [core/result_spec.md](./core/result_spec.md))。
 * 同じ入力には、同じ操作計画・同じリクエスト材料を返す。
 
 ### 3. 依存方向
@@ -51,7 +52,8 @@ flowchart TD
 ### 6. プロバイダ
 
 * プロバイダは **記述子 + Adapter 関数のレジストリ** で差し替える。共通はレコードと操作の骨格、差分は記述子の写像に閉じる。正本は [core/provider_spec.md](./core/provider_spec.md) (Slug Generater の翻訳プロバイダに倣う。OpenAPI codegen は持たない)。
-* 公開関数はレジストリを引く薄いファサードである。Zoom 専用分岐を公開面に置かない。
+* うち **build / map / OAuth** はレジストリを引く薄いファサードである。normalize / validate / plan / diff は共通 Core である。
+* プロバイダ規則の正本入口に Zoom 専用分岐を置かない。任意の Zoom 専用ヘルパ (非 SoT) は置いてよい (正本は `attach_survey` 等)。
 * 初版の実装は `zoom` だけである。使わない接続先の空実装は置かない。
 * 未知の `provider` は不足 `provider_unsupported` とする。例外にしない。
 * **例外**はプログラマー／設定ミスだけとする: 未知の `op`、計画 op の必須 step 欠落 (例: `attach_survey` の `survey_document`)、id 非空前提 op で `webinar_id` 空、OAuth 必須 config 欠落。

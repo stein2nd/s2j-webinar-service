@@ -65,7 +65,7 @@ oauth_materials('token'|'refresh', config, ...) -> RequestMaterial
 * 不足コード (Deficiency) の用語は [../contracts/data_dictionary.md](../contracts/data_dictionary.md)。初版の公開 `build` / `map` で使う不足は一覧のコードのみ (`provider_unsupported` 等)。材料不能用の別コードは置かない。`build_request` は Deficiency を返さない。
 * 公開の `build_webinar_request` はファサードの封筒 `{ material?, deficiencies: string[] }` を返す ([../interfaces/php_api_spec.md](../interfaces/php_api_spec.md))。未知 `provider` は lookup 失敗で不足。Adapter には来ない。PHP シグネチャは Adapter と一致させない。
 * 公開の `map_webinar_response` は `map_result` の戻りに加え、未知 `provider` 時は `deficiencies: ['provider_unsupported']` を載せる (レコードおよび status は不変)。
-* 未知の `op`、計画 op の必須 step 欠落 (`attach_survey` の `survey_document` 等)、id 非空前提 op で `webinar_id` 空は `InvalidArgumentException`。
+* 公開の **build / map** で未知の `op`、計画 op の必須 step 欠落 (`attach_survey` の `survey_document` 等)、id 非空前提 op で `webinar_id` 空は `InvalidArgumentException`。
 * `oauth_materials`: 必須 `config` キー欠落は `InvalidArgumentException` (設定ミス。レコード不足チャネルと混ぜない)。
 * `Authorization` は材料に含めない。トークン付与と HTTP 実行はプラグイン。
 * プロバイダ固有のエラー文は `last_error` に載せてよい。トークンとシークレットは載せない。

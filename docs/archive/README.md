@@ -1,8 +1,8 @@
-# docs_mod/archive (イニシアチブ証跡)
+# docs/archive (イニシアチブ証跡)
 
-完了した実装・改修イニシアチブの **凍結スナップショット** を、合意後は `docs/archive/` に置きます。起草中は本ディレクトリを使ってかまいません。
+完了した実装・改修イニシアチブの **凍結スナップショット** を置きます。
 
-規則の正本は [../governance/documentation_governance.md](../governance/documentation_governance.md) です。
+規則の正本は [../governance/documentation_governance.md](../governance/documentation_governance.md) です。進行中の三点は [`../../docs_mod/`](../../docs_mod/) で起草します。
 
 ## 命名
 

@@ -30,6 +30,8 @@
 * `docs_mod/contracts/data_contract_spec.md`: `map_webinar_response` の戻りを `record` / `start_url?` / `deficiencies` に固定。プログラマー誤りは `InvalidArgumentException`
 * `docs_mod/core/oauth_spec.md`: `oauth_materials` の kind 別戻り (`authorize` は URL 文字列、`token` / `refresh` はリクエスト材料) を表で固定
 * `docs_mod/core/provider_spec.md`: survey は独立 Adapter フィールドにせず `build_request` の `attach_survey` 分岐。必須 step / id / OAuth config 欠落は例外
+* 合意済み仕様キットを `docs_mod/` から `docs/` に移行。`docs_mod/` は改訂案・進行中イニシアチブの起草用シェルとして残す。README を `docs/` 導線に更新
+* `docs/` BP: `plan` は再 validate しない (不足ゲートは呼び出し側)、`intend_get` は書き込み列末尾 (`delete` 単独は付けない)、`map_result` 戻り `{ record, start_url? }`、map 未知 op は例外、build/map/OAuth のみレジストリ・ファサード、survey ヘルパは非 SoT、Panelist 全員一括 DELETE 不使用
 
 ## 0.0.1 - 2026-10-08
 

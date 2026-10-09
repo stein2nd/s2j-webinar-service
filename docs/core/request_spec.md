@@ -93,9 +93,11 @@ Webinar の `type` は単発の `5` だけです。繰り返し (`6` / `9`) は�
 
 `panelistId` は操作要素の `email` (正規化後)。body なし。
 
+全員一括の `DELETE /webinars/{webinarId}/panelists` (末尾に panelistId なし) は使いません。
+
 ## attach_survey
 
-公開の組立入口は `build_webinar_request( 'attach_survey', … )` です。操作要素の `survey_document` は必須 ([operation_spec.md](./operation_spec.md))。ボディのトップ形と設問写像は [survey_map_spec.md](./survey_map_spec.md) を正本とします。`build_survey_update_request` を置く場合は、同じ写像への薄い委譲とし、規則を分岐させません。
+公開の正本入口 (SoT) は `build_webinar_request( 'attach_survey', … )` です。操作要素の `survey_document` は必須 ([operation_spec.md](./operation_spec.md))。ボディのトップ形と設問写像は [survey_map_spec.md](./survey_map_spec.md) を正本とします。任意の `build_survey_update_request` は非 SoT ・ Zoom 専用の薄い委譲とし、規則を分岐させません。
 
 ## 参加登録 (`approval_type`)
 

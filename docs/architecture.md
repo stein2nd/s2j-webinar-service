@@ -52,8 +52,8 @@ s2j-webinar-service/
 ├── phpstan.neon
 ├── phpcs.xml.dist
 ├── package.json
-├── docs/                 # 合意後の確定仕様
-├── docs_mod/             # いまの起草キット (本ディレクトリ)
+├── docs/                 # 確定仕様 (本ディレクトリ)
+├── docs_mod/             # 改訂案・進行中イニシアチブの起草
 ├── coverage/             # PHPUnit 生成物 (gitignore)
 ├┬─ src/
 │├── Contracts/

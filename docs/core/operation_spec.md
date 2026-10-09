@@ -67,39 +67,47 @@ survey 未完了を create の条件にしません。文書がまだなけれ�
 2. `remove_panelists` (メールごと)  
 3. `add_panelists`  
 4. `attach_survey`  
-5. `get` (`intend_get` の場合)
+5. `get` (`intend_get` の場合。書き込み列の末尾)
 
-`delete` だけの列、および不足時の表示用 `get` だけの列はこの順の対象外です。
+`delete` だけの列では `get` を付けません (削除後に取得しない)。`intend_get` だけの列はこの順の対象外です。
+
+### `intend_get` の付け方 (共通)
+
+書き込み系の分岐 (手順2〜5) のあと、`intend_get` が真なら列末尾に `get` を付けます。
+
+* id がすでに非空なら、その id 向け。
+* 手順2 (create) では計画に `get` を含めてよい。**実行は create 成功後** (panelist / survey と同じ)。
 
 ## 計画の規則 (初版)
 
-入力: 正規化・検証済みレコードと上記コンテキストです。
+入力: **呼び出し側が正規化・検証済み (不足ゼロ)** のレコードと上記コンテキストです。本関数は `validate` を再実行しません。validate を飛ばした場合の書き込み列の正しさは保証しません。
 
 同じ項目での更新を、成功のたびに無条件で繰り返しません。`dirty` の場合だけ `update` を返します。
 
-呼び出し側への注記: 本体項目 (topic / 日時 / 録画 / 参加登録等) が変わった場合だけ `dirty` にする。**登壇者だけ・アンケートだけの変更は `synced` のままでよい** (下記の synced 分岐が差分と `attach_survey` を扱う)。
+呼び出し側への注記: 本体項目 (topic / 日時 / 録画 / 参加登録等) が変わった場合だけ `dirty` にする。**登壇者だけ・アンケートだけの変更は `synced` のままでよい** (下記の synced 分岐が差分と `attach_survey` を扱う)。不足があるときは書き込み用の `plan` を呼ばない (表示用は `intend_get` + id 非空でよい)。
 
 Panelist 差分は、本関数が `previous_panelists` とレコードの `panelists` から [panelist_spec.md](./panelist_spec.md) と同じ規則で計算します (公開 `diff_panelists` と二重実装しない)。
 
-1. **検証に不足がある**  
-   * 書き込み系 (`create` / `update` / `delete` / Panelist / survey) は返さない。  
-   * `intend_get` があり `webinar_id` が非空なら `get` だけ返してよい (表示用)。
-2. **`intend_delete` が真**  
+1. **`intend_delete` が真**  
    * `webinar_id` が非空 → `delete`。空 → 空列。  
-   * ゴミ箱移動・完全削除ではプラグインが本ライブラリの delete を呼ばない (境界。プラグイン仕様)。
-3. **`webinar_id` が空** (`not_created` / 作成失敗の `error` を含む)  
-   * 不足がなければ `create`。続けて Panelist 追加が必要なら `add_panelists` を列に含める (実行は create 成功後)。  
-   * `survey_document` が非空なら `attach_survey` も列に含める (実行は create 成功後。文書の `ready` 判定はプラグイン / Survey Service)。
-4. **`status` が `dirty`** かつ `webinar_id` 非空  
+   * ゴミ箱移動・完全削除ではプラグインが本ライブラリの delete を呼ばない (境界。プラグイン仕様)。  
+   * **`get` は付けない** (上記の例外)。
+2. **`webinar_id` が空** (`not_created` / 作成失敗の `error` を含む)  
+   * `create`。続けて Panelist 追加が必要なら `add_panelists` を列に含める (実行は create 成功後)。  
+   * `survey_document` が非空なら `attach_survey` も列に含める (実行は create 成功後。文書の `ready` 判定はプラグイン / Survey Service)。  
+   * `intend_get` なら末尾に `get` (実行は create 成功後)。
+3. **`status` が `dirty`** かつ `webinar_id` 非空  
    * `update`。1人目変更に伴う連絡先更新は update ボディに含める。  
    * Panelist 差分があれば `remove_panelists` / `add_panelists` を続ける。  
-   * `survey_document` が非空なら `attach_survey` を続ける。
-5. **`status` が `synced`** かつ `webinar_id` 非空  
+   * `survey_document` が非空なら `attach_survey` を続ける。  
+   * `intend_get` なら末尾に `get`。
+4. **`status` が `synced`** かつ `webinar_id` 非空  
    * 同じ項目での無条件 `update` は返さない。  
-   * Panelist 差分のみ、および / または `survey_document` 非空なら `attach_survey`、および / または `intend_get` なら `get`。いずれもなければ空列。
-6. **`status` が `error`**  
-   * **`intend_retry` が意味を持つのは、id 非空の場合** (再 `update` 等。手順4に準じる)。  
-   * id 空の作成失敗は手順3 (id 空) で `create` できる。**`intend_retry` は不要** (付けても害はない)。  
+   * Panelist 差分のみ、および / または `survey_document` 非空なら `attach_survey`。  
+   * `intend_get` なら末尾に `get`。いずれもなければ空列。
+5. **`status` が `error`**  
+   * **`intend_retry` が意味を持つのは、id 非空の場合** (再 `update` 等。手順3に準じ、`intend_get` も同様)。  
+   * id 空の作成失敗は手順2 (id 空) で `create` できる。**`intend_retry` は不要** (付けても害はない)。  
    * `intend_retry` が偽で id 非空の場合: `intend_get` なら `get`、それ以外は空列。
 
 分岐は上から順です。`webinar_id` 空は `status` より先に見ます (正規化は [record_spec.md](./record_spec.md)。id 空でも作成失敗の `error` は維持しうる)。

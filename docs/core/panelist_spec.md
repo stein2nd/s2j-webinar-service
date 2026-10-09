@@ -33,7 +33,7 @@
 
 ## 差分規則
 
-全員を消す `DELETE /webinars/{webinarId}/panelists` は使いません。
+**全員を一度に消す操作は使いません** (1メール=1削除要素)。初版 Zoom のパス正本は [request_spec.md](./request_spec.md) (`remove_panelists`)。
 
 | 状況 | 操作 |
 | --- | --- |

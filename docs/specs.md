@@ -5,7 +5,7 @@
 
 統合の見取り図は [service_spec.md](./service_spec.md) です (要約。規則の正本は `core/`)。構成は [S2J Similarity Service の docs/](https://github.com/stein2nd/s2j-similarity-service/tree/main/docs) と [S2J Webinar Survey Service の docs/](https://github.com/stein2nd/s2j-webinar-survey-service/tree/main/docs) に倣い、本ライブラリに必要な層だけを置いています。
 
-**いまの置き場:** 合意前のため本キットは `docs_mod/` にあります。合意後は `docs/` に移し、以降の大きな改訂案だけを `docs_mod/` で起草します。
+**いまの置き場:** 確定仕様の正本は `docs/` です。大きな改訂案は `docs_mod/` で起草し、合意のあと本ディレクトリに反映します。
 
 ## 読み方ガイド
 

@@ -10,12 +10,12 @@
 
 | 対象 | 正本 |
 | --- | --- |
-| 規則 | `docs_mod/core/*` (合意後は `docs/core/*`) |
-| 型 | `docs_mod/contracts/*` |
-| 公開 PHP API | `docs_mod/interfaces/php_api_spec.md` |
+| 規則 | `docs/core/*` |
+| 型 | `docs/contracts/*` |
+| 公開 PHP API | `docs/interfaces/php_api_spec.md` |
 | 最短手順 | ルート `README.md` |
-| 統合の見取り図 | `docs_mod/service_spec.md` (要約。規則の正本ではない) |
-| 索引 | `docs_mod/specs.md` |
+| 統合の見取り図 | `docs/service_spec.md` (要約。規則の正本ではない) |
+| 索引 | `docs/specs.md` |
 
 ## 用語
 
@@ -27,7 +27,7 @@
 ## Lint
 
 * `@s2j/docs-linter` を SoT とする。
-* `npm run lint:docs` の対象に `docs_mod/**/*.md` を含める。
+* `npm run lint:docs` の対象に `docs/**/*.md` と `docs_mod/**/*.md` を含める。
 
 ## 分割ルール
 
@@ -42,7 +42,7 @@
 
 ## イニシアチブ証跡 (archive)
 
-作業中三点は `docs_mod/`、完了時に archive に freeze します。機械成果物は置きません。索引は [../archive/README.md](../archive/README.md)。
+作業中三点は `docs_mod/`、完了時に `docs/archive/` に freeze します。機械成果物は置きません。索引は [../archive/README.md](../archive/README.md)。
 
 | 種類 | フォルダー |
 | --- | --- |
