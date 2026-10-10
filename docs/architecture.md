@@ -52,25 +52,25 @@ s2j-webinar-service/
 ├── phpstan.neon
 ├── phpcs.xml.dist
 ├── package.json
-├── docs/                 # 確定仕様 (本ディレクトリ)
-├── docs_mod/             # 改訂案・進行中イニシアチブの起草
-├── coverage/             # PHPUnit 生成物 (gitignore)
-├┬─ src/
-│├── Contracts/
-│├┬─ Core/
-││├─ Record.php
-││├─ Validate.php
-││├─ Provider.php      # レジストリ (記述子 lookup)
-││├─ Operation.php
-││├─ Panelist.php
-││├─ Request.php         # レジストリ経由の委譲 (Zoom パスは置かない)
-││├─ Result.php
-││├─ Oauth.php
-││└─ Providers/          # zoom: path/body/写像の正本実装 (空実装は置かない)
-│└── …                     # 公開関数 (名前空間 S2J\WebinarService\)
-└┬─ tests/
-　├─ Unit/
-　└─ bootstrap.php
+├── docs/                    # 確定仕様 (本ディレクトリ)
+├── docs_mod/                # 改訂案・進行中イニシアチブの起草
+├── coverage/                # PHPUnit 生成物 (gitignore)
+├── src/
+│   ├── Contracts/
+│   ├── Core/
+│   │   ├── Record.php
+│   │   ├── Validate.php
+│   │   ├── Provider.php     # レジストリ (記述子 lookup)
+│   │   ├── Operation.php
+│   │   ├── Panelist.php
+│   │   ├── Request.php      # レジストリ経由の委譲 (Zoom パスは置かない)
+│   │   ├── Result.php
+│   │   ├── Oauth.php
+│   │   └── Providers/       # zoom: path/body/写像の正本実装 (空実装は置かない)
+│   └── …                    # 公開関数 (名前空間 S2J\WebinarService\)
+└── tests/
+    ├── Unit/
+    └── bootstrap.php
 ```
 
 ## 技術スタック

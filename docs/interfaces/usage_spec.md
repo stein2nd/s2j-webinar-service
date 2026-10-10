@@ -108,4 +108,4 @@ flowchart TD
 ## 関連
 
 * PHP API: [php_api_spec.md](./php_api_spec.md)
-* プラグイン仕様: [S2J Webinar specs](https://github.com/stein2nd/s2j-webinar/blob/main/docs_mod/specs.md) (プラグイン側が `docs/` に移行したら追随する)
+* プラグイン仕様: [S2J Webinar specs](https://github.com/stein2nd/s2j-webinar/blob/main/docs/specs.md)

@@ -134,17 +134,19 @@ function map_webinar_response(string $op, int $http_status, ?array $body, array 
 
 公開の **正本入口 (SoT)** は `build_webinar_request( 'attach_survey', … )` です。本関数はレジストリ汎用ではなく、規則の正本でもありません。利便のために置く場合は、初版 **Zoom 固定** (`lookupProvider( 'zoom' )` → `build_request( 'attach_survey', … )` 相当) で [../core/survey_map_spec.md](../core/survey_map_spec.md) に委譲するだけにし、規則を分岐させません。戻り形は `build_webinar_request` と同じ (`material` / `deficiencies`)。置かない選択も可です。
 
+`$webinar_title` は **任意** (`null` 可。SoT の `attach_survey` と同じ)。欠落または空の場合は操作要素に `webinar_title` を載せない想定で委譲し、記述子がレコードの `topic` にフォールバックする ([../core/operation_spec.md](../core/operation_spec.md) / [../core/survey_map_spec.md](../core/survey_map_spec.md))。本ヘルパがレコードを組み立てる場合も、そのフォールバック規則を分岐させない。
+
 ```php
 /**
  * @param array<string, mixed> $survey_document ready 文書
  * @param string $webinar_id
- * @param string $webinar_title 見出し未設定時の title 用
+ * @param string|null $webinar_title 見出し用 (任意。null / 空は SoT どおり topic フォールバック)
  * @return array{
  *   material?: array{method: string, path: string, body: array<string, mixed>},
  *   deficiencies: list<string>
  * }
  */
-function build_survey_update_request(array $survey_document, string $webinar_id, string $webinar_title): array;
+function build_survey_update_request(array $survey_document, string $webinar_id, ?string $webinar_title = null): array;
 ```
 
 ### OAuth 材料

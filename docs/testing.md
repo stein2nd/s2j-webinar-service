@@ -29,7 +29,7 @@ WordPress も Zoom ライブも使わずに、検証・操作計画・差分・�
 * 何もしない場合は空配列 (`none` を返さない)
 * Panelist: 追加・削除・氏名のみ変更 (削除+追加)、並び替えだけでは差分なし。`remove_panelists` は1メール=1要素
 * Panelist メール: 差分・リクエストでは trim + ASCII 小文字 (`Taro@…` と `taro@…` は同一)。`normalize` 後のレコードは入力の大小を維持。add ボディは小文字化した `{ "panelists": [ { "name", "email" } ] }` スナップショット1件以上
-* id 非空の `error` で `intend_retry` なしは空列 (または get のみ)。id 空の `error` は create 計画可
+* id 非空の `error` で `intend_retry` なしは空列 (または get のみ)。`intend_retry` 真かつ id 非空は手順3と同じ列 (`update` → 差分 → `attach_survey` → 任意 `get`)。id 空の `error` は create 計画可
 * create 成功写像で `webinar_id` / `join_url`、失敗で `error` かつ作成前は ID 空。2xx 以外は失敗
 * panelist / survey 成功で `synced` と `last_error` 空。get 成功・失敗とも status 非変更。delete 失敗は error かつ id 残す
 * survey 写像: 5種の type、`short`→`short_answer` 等。送らない type を載せない

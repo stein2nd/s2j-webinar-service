@@ -79,8 +79,8 @@
 | フィールド | 型 | 説明 |
 | --- | --- | --- |
 | method | string | `GET` / `POST` / `PATCH` / `DELETE` |
-| `path` | string | 例: `/users/me/webinars` |
-| body | object\|null | Authorization なし |
+| `path` | string | Webinar REST: ホストなし (例: `/users/me/webinars`)。OAuth token/refresh: フル URL (例: `https://zoom.us/oauth/token`)。正本は [../core/request_spec.md](../core/request_spec.md) / [../core/oauth_spec.md](../core/oauth_spec.md) |
+| body | object\|null | Authorization / Basic なし (プラグインが付ける) |
 
 ### build_webinar_request の戻り
 

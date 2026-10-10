@@ -52,20 +52,22 @@
 
 ## キー写像
 
+設問は **`answer_kind`** で分岐する。文書トップや設問に `single` / `short` などのキーはない (値は `answer_kind` に入る)。
+
 文書にあっても初版では送らないもの: `internal_name`、調査のメタ情報、`show_as_dropdown`、重み、画像、スキップロジック。
 
-| 文書 | Zoom |
+| 文書 (フィールド / 条件) | Zoom |
 | --- | --- |
 | `prompt` | `name` |
 | `required` | `answer_required` |
-| `single` + `choices` | `type` = `single`、`answers` = `choices` |
-| `multiple` + `choices` | `type` = `multiple`、`answers` = `choices` |
-| `short` | `type` = `short_answer`。文字数キーは送らない (API デフォルト) |
-| `long` | `type` = `long_answer`。同上 |
-| `rating` の `score_min` | `rating_min_value` |
-| `rating` の `score_max` | `rating_max_value` |
-| `rating` の `label_low` | `rating_min_label` |
-| `rating` の `label_high` | `rating_max_label` |
+| `answer_kind` = `single` かつ `choices` | `type` = `single`、`answers` = `choices` |
+| `answer_kind` = `multiple` かつ `choices` | `type` = `multiple`、`answers` = `choices` |
+| `answer_kind` = `short` | `type` = `short_answer`。文字数キーは送らない (API デフォルト) |
+| `answer_kind` = `long` | `type` = `long_answer`。同上 |
+| `answer_kind` = `rating` の `score_min` | `rating_min_value` |
+| `answer_kind` = `rating` の `score_max` | `rating_max_value` |
+| `answer_kind` = `rating` の `label_low` | `rating_min_label` |
+| `answer_kind` = `rating` の `label_high` | `rating_max_label` |
 
 ## 関連
 

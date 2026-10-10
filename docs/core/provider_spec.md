@@ -76,7 +76,7 @@ oauth_materials('token'|'refresh', config, ...) -> RequestMaterial
 1. 記述子を1件足す (`id`、案内、`build_request` / `map_result`、必要なら `oauth_materials`。survey は `build_request` の `attach_survey` と写像仕様)。
 2. レジストリに登録する。
 3. その `id` 向けの PHPUnit (未知 ID は `provider_unsupported`、組込みは既存分岐を壊さない)。
-4. 仕様に組込み表を1行足す。プラグイン側は、実装済みが増えたら選択 UI を出す ([S2J Webinar specs](https://github.com/stein2nd/s2j-webinar/blob/main/docs_mod/specs.md))。
+4. 仕様に組込み表を1行足す。プラグイン側は、実装済みが増えたら選択 UI を出す ([S2J Webinar specs](https://github.com/stein2nd/s2j-webinar/blob/main/docs/specs.md))。
 
 ## 設定との関係
 

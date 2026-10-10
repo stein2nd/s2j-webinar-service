@@ -84,7 +84,7 @@ survey 未完了を create の条件にしません。文書がまだなけれ�
 
 同じ項目での更新を、成功のたびに無条件で繰り返しません。`dirty` の場合だけ `update` を返します。
 
-呼び出し側への注記: 本体項目 (topic / 日時 / 録画 / 参加登録等) が変わった場合だけ `dirty` にする。**登壇者だけ・アンケートだけの変更は `synced` のままでよい** (下記の synced 分岐が差分と `attach_survey` を扱う)。不足があるときは書き込み用の `plan` を呼ばない (表示用は `intend_get` + id 非空でよい)。
+呼び出し側への注記: 本体項目 (topic / 日時 / 録画 / 参加登録等) が変わった場合だけ `dirty` にする。**登壇者だけ・アンケートだけの変更は `synced` のままでよい** (下記の synced 分岐が差分と `attach_survey` を扱う)。不足がある場合は書き込み用の `plan` を呼ばない (表示用は `intend_get` + id 非空でよい)。
 
 Panelist 差分は、本関数が `previous_panelists` とレコードの `panelists` から [panelist_spec.md](./panelist_spec.md) と同じ規則で計算します (公開 `diff_panelists` と二重実装しない)。
 
@@ -106,9 +106,13 @@ Panelist 差分は、本関数が `previous_panelists` とレコードの `panel
    * Panelist 差分のみ、および / または `survey_document` 非空なら `attach_survey`。  
    * `intend_get` なら末尾に `get`。いずれもなければ空列。
 5. **`status` が `error`**  
-   * **`intend_retry` が意味を持つのは、id 非空の場合** (再 `update` 等。手順3に準じ、`intend_get` も同様)。  
-   * id 空の作成失敗は手順2 (id 空) で `create` できる。**`intend_retry` は不要** (付けても害はない)。  
-   * `intend_retry` が偽で id 非空の場合: `intend_get` なら `get`、それ以外は空列。
+   * **`intend_retry` が真** かつ `webinar_id` 非空: **手順3 (`dirty` 分岐) と同じ計画**を返す。`dirty` フラグは見ない (`error` のまま再試行できる)。  
+     * `update`。1人目変更に伴う連絡先更新は update ボディに含める。  
+     * Panelist 差分があれば `remove_panelists` / `add_panelists` を続ける。  
+     * `survey_document` が非空なら `attach_survey` を続ける。  
+     * `intend_get` なら末尾に `get`。  
+   * **`intend_retry` が偽** かつ id 非空: `intend_get` なら `get`、それ以外は空列。  
+   * id 空の作成失敗は手順2 (id 空) で `create` できる。**`intend_retry` は不要** (付けても害はない)。
 
 分岐は上から順です。`webinar_id` 空は `status` より先に見ます (正規化は [record_spec.md](./record_spec.md)。id 空でも作成失敗の `error` は維持しうる)。
 

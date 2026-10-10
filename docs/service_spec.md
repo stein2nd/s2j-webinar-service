@@ -8,7 +8,7 @@
 
 本ライブラリは、GatherPress のイベントから Zoom Webinar を作成・更新・削除・再取得するためのリクエスト材料を組み立てます。**WordPress 非依存** です。HTTP の実行、OAuth トークン保存、画面は [S2J Webinar](https://github.com/stein2nd/s2j-webinar) です。設問の検査は [S2J Webinar Survey Service](https://github.com/stein2nd/s2j-webinar-survey-service) です。本ライブラリは `ready` 文書の Zoom アンケート写像だけを持ちます。
 
-プラグイン仕様: [s2j-webinar docs_mod/specs.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs_mod/specs.md) (プラグインが `docs/` に移行したら追随する)。
+プラグイン仕様: [s2j-webinar docs/specs.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/specs.md)。
 
 | 層 | 名称 | 役割 |
 | --- | --- | --- |
@@ -130,3 +130,4 @@ FOP + Clean Coding です。パッケージ名 `s2j/webinar-service`、名前空
 | 2026-10-09 | メール正規化は差分・リクエストのみ。レコード normalize では大小を書き戻さない、と記録 |
 | 2026-10-09 | プロバイダはアダプタで差し替え可能とする (のち記述子 + Adapter 関数と明文化)。初版は `zoom` のみ。空実装は置かない。管理画面の選択はプラグイン側、と記録 |
 | 2026-10-09 | プロバイダ・レジストリ仕様を追加 ([provider_spec.md](./core/provider_spec.md)。Slug Generater の記述子形に倣う)、と記録 |
+| 2026-10-10 | `intend_retry` は dirty と同計画、OAuth RequestMaterial の path/body、survey_map は `answer_kind` 明示、プラグイン SPECS を `docs/specs.md` に、と記録 |

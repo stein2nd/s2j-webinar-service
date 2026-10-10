@@ -45,6 +45,19 @@
 
 必須 `config` キー欠落は `InvalidArgumentException` です。シークレットをログ用フィールドに複製しません。
 
+Webinar REST の RequestMaterial は **API ホストなしの `path`** (`/users/me/webinars` 等。ホストはプラグインが `api.zoom.us` 等を付ける) です。OAuth の token / refresh はホストが違うため、**`path` にフル URL** (`https://zoom.us/oauth/token`) を載せます。プラグインは `path` が `https://` で始まる場合はそのまま使い、そうでなければ API ベースを前置します。
+
+**Basic 認証 (`client_id:client_secret`) は材料に入れない。** Webinar の `Authorization` と同様、プラグインが付ける。
+
+### token / refresh の RequestMaterial (初版)
+
+| kind | method | `path` | body |
+| --- | --- | --- | --- |
+| `token` | `POST` | `https://zoom.us/oauth/token` | `grant_type` = `authorization_code`、`code` (公開面の引数)、`redirect_uri` (`config`) |
+| `refresh` | `POST` | `https://zoom.us/oauth/token` | `grant_type` = `refresh_token`、`refresh_token` (公開面の引数) |
+
+body はキー付き object で返す。プラグインが `application/x-www-form-urlencoded` にエンコードしてよい。
+
 ### 認可 URL (初版)
 
 `build_oauth_authorize_url` (≒ `oauth_materials( 'authorize', … )`) は、上記表の本人用スコープを **スペース区切りでまとめて** `scope` に載せます。プラグインがサブセットだけ渡す拡張は後続です。
