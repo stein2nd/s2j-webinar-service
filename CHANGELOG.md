@@ -2,6 +2,18 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-11
+
+### Added
+
+* docs (v0.0.2): Source Tracking 取り込みを `docs_mod/` から確定移行 — [tracking_import_spec](./docs/core/tracking_import_spec.md)、[tracking_import_contract](./docs/contracts/tracking_import_contract.md)、[tracking_import_php_api](./docs/interfaces/tracking_import_php_api.md)
+* docs: `zoom` GET 写像、`build_tracking_sources_request` / `map_tracking_sources_response`、tracking 専用 deficiencies (`tracking_http_error` 等)。Webinar 同期 `plan` / `build_webinar_request` には載せない
+
+### Changed
+
+* docs: [specs](./docs/specs.md) / [provider_spec](./docs/core/provider_spec.md) (Zoom 表) / [php_api_spec](./docs/interfaces/php_api_spec.md) / [status](./docs/status.md) に tracking 索引を追記
+* docs: [docs_mod/README](./docs_mod/README.md) と [docs_mod/status](./docs_mod/status.md) を正本パス・進捗表記に更新 (起草表記を除去)
+
 ## 0.0.1 - 2026-10-10
 
 ### Changed

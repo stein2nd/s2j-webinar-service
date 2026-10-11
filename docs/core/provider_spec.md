@@ -48,6 +48,7 @@ lookupProvider(id: ProviderId): Result<WebinarProvider, provider_unsupported>
 | 応答写像 | [result_spec.md](./result_spec.md) |
 | OAuth スコープ | [oauth_spec.md](./oauth_spec.md) |
 | アンケート PATCH | [survey_map_spec.md](./survey_map_spec.md) |
+| Source Tracking GET 取り込み | [tracking_import_spec.md](./tracking_import_spec.md) |
 
 使わない接続先 (Teams / Meet 等) の空実装は、置きません。
 

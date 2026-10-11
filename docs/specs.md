@@ -61,12 +61,14 @@
 | [結果写像](./core/result_spec.md) | API 応答からレコードへの写像 |
 | [OAuth 材料](./core/oauth_spec.md) | 認可・トークン交換のリクエスト材料 |
 | [アンケート写像](./core/survey_map_spec.md) | Survey 文書 → Zoom survey PATCH |
+| [Source Tracking 取り込み](./core/tracking_import_spec.md) | `zoom` GET → 正規化 `items[]` (同期パイプライン外) |
 
 ### What (契約)
 
 | ドキュメント | 内容 |
 | --- | --- |
 | [入出力仕様](./contracts/data_contract_spec.md) | DTO、結果レコード |
+| [Source Tracking 契約](./contracts/tracking_import_contract.md) | 取り込み `items[]` / build ・map 封筒 |
 | [データ辞書](./contracts/data_dictionary.md) | 用語、型、制約 |
 
 ### How (インターフェイス)
@@ -74,6 +76,7 @@
 | ドキュメント | 内容 |
 | --- | --- |
 | [PHP 公開面](./interfaces/php_api_spec.md) | Composer から見える関数・型 |
+| [Source Tracking PHP 公開面](./interfaces/tracking_import_php_api.md) | tracking 専用ファサードの索引 |
 | [使用方法](./interfaces/usage_spec.md) | プラグインからの呼び出し例 |
 
 ### エンジニアリング

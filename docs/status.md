@@ -4,7 +4,7 @@
 
 # S2J Webinar Service - 実装状況
 
-最終更新: 2026-10-10
+最終更新: 2026-10-11
 
 ## 仕様書 (参照元)
 
@@ -28,6 +28,7 @@
 | 結果写像 | 未実装 | 0 | [result_spec.md](./core/result_spec.md) |
 | OAuth 材料 | 未実装 | 0 | [oauth_spec.md](./core/oauth_spec.md) |
 | アンケート写像 | 未実装 | 0 | [survey_map_spec.md](./core/survey_map_spec.md) |
+| Source Tracking 取り込み (`zoom` GET) | 仕様確定 / 未実装 | 0 | [tracking_import_spec.md](./core/tracking_import_spec.md) |
 | PHPUnit / PHPStan / PHPCS | 設定ファイルのみ想定 | 0 | [testing.md](./testing.md) |
 | Packagist 公開 | 未実装 | 0 | [build_and_release.md](./engineering/build_and_release.md) |
 | プラグインからの require | 未実装 | 0 | S2J Webinar 側 |

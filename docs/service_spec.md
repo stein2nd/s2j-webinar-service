@@ -130,4 +130,4 @@ FOP + Clean Coding です。パッケージ名 `s2j/webinar-service`、名前空
 | 2026-10-09 | メール正規化は差分・リクエストのみ。レコード normalize では大小を書き戻さない、と記録 |
 | 2026-10-09 | プロバイダはアダプタで差し替え可能とする (のち記述子 + Adapter 関数と明文化)。初版は `zoom` のみ。空実装は置かない。管理画面の選択はプラグイン側、と記録 |
 | 2026-10-09 | プロバイダ・レジストリ仕様を追加 ([provider_spec.md](./core/provider_spec.md)。Slug Generater の記述子形に倣う)、と記録 |
-| 2026-10-10 | `intend_retry` は dirty と同計画、OAuth RequestMaterial の path/body、survey_map は `answer_kind` 明示、プラグイン SPECS を `docs/specs.md` に、と記録 |
+| 2026-10-10 | `intend_retry` は dirty と同計画、OAuth RequestMaterial の パス/body、survey_map は `answer_kind` 明示、プラグイン SPECS を `docs/specs.md` に、と記録 |

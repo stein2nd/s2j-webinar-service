@@ -41,7 +41,7 @@ flowchart TD
 
 本ライブラリに **`adapters/http/` は置きません。** HTTP 実行はプラグイン (HTTP Adapter)。記述子上の Adapter 関数とは別物です ([contracts/data_dictionary.md](./contracts/data_dictionary.md))。ライブラリ SoT は、上記の純関数構成です。
 
-Zoom 固有のパス・ボディ・OAuth スコープ・survey / 結果写像は **`Core/Providers/` 配下の記述子** に置きます。`Core/Request.php` 等に Zoom 文字列をハードコードしません (ディスパッチと薄い委譲のみ)。
+Zoom 固有のパス、ボディ、OAuth スコープ、survey / 結果写像は **`Core/Providers/` 配下の記述子** に置きます。`Core/Request.php` 等に Zoom 文字列をハードコードしません (ディスパッチと薄い委譲のみ)。
 
 ```plaintext
 s2j-webinar-service/

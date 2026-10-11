@@ -24,6 +24,7 @@
 | レジストリ・ファサード | `map_webinar_response` | 同上 → `map_result` |
 | レジストリ・ファサード | `build_oauth_*` | 初版は `lookupProvider( 'zoom' )` → `oauth_materials` (レコードなし。他プロバイダ追加時に拡張) |
 | 共通 Core | `normalize_webinar_record` / `validate_webinar_record` / `plan_webinar_operations` / `diff_panelists` | (なし) |
+| レジストリ・ファサード | `build_tracking_sources_request` / `map_tracking_sources_response` | `lookupProvider` → 記述子の tracking 写像 ([tracking_import_php_api.md](./tracking_import_php_api.md)) |
 
 ### normalize_webinar_record / validate_webinar_record
 
@@ -129,6 +130,10 @@ function diff_panelists(array $previous, array $current): array;
  */
 function map_webinar_response(string $op, int $http_status, ?array $body, array $record): array;
 ```
+
+### Source Tracking 取り込み (`build_tracking_sources_request` / `map_tracking_sources_response`)
+
+Webinar 同期 (`plan` / `build_webinar_request`) とは **別系統** です。規則・シグネチャ・不足コードは [../core/tracking_import_spec.md](../core/tracking_import_spec.md) が正本です。呼び出し上の注意は [tracking_import_php_api.md](./tracking_import_php_api.md) です。
 
 ### build_survey_update_request (任意ヘルパ・非 SoT ・ Zoom 専用)
 
