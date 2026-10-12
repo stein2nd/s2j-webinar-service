@@ -35,4 +35,4 @@
 | [tracking_import_contract.md](../docs/contracts/tracking_import_contract.md) | DTO |
 | [tracking_import_php_api.md](../docs/interfaces/tracking_import_php_api.md) | 公開面索引 |
 
-進捗: [status.md](./status.md)。関連: [S2J Webinar v0.0.2](https://github.com/stein2nd/s2j-webinar/tree/main/docs_mod/v0.0.2)、[Source QR docs](https://github.com/stein2nd/s2j-webinar-source-qr/tree/main/docs)
+進捗: [status.md](./status.md)。関連: [S2J Webinar v0.0.2](https://github.com/stein2nd/s2j-webinar/tree/main/docs/operational_material_index.md)、[Source QR docs](https://github.com/stein2nd/s2j-webinar-source-qr/tree/main/docs)

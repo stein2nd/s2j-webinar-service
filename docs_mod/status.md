@@ -21,9 +21,9 @@
 
 | リポジトリ | 参照 |
 | --- | --- |
-| S2J Webinar | [source_qr_handoff_spec.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs_mod/v0.0.2/source_qr_handoff_spec.md) |
+| S2J Webinar | [source_qr_handoff_spec.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/source_qr_handoff_spec.md) |
 | Source QR | [persistence_spec.md](https://github.com/stein2nd/s2j-webinar-source-qr/blob/main/docs/persistence_spec.md) (マージ規則) |
-| Webinar v0.0.2 - status | [status.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs_mod/v0.0.2/status.md) |
+| Webinar v0.0.2 - status | [status.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/operational_material_index.md) |
 
 ## 完了条件 (実装)
 

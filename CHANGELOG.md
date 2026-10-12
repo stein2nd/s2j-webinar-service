@@ -2,6 +2,13 @@
 
 ## unreleased
 
+## 0.0.1 - 2026-10-12
+
+### Changed
+
+* docs: tracking 取り込みの S2J Webinar 参照を `docs/` 正本 (handoff / glossary / operational index) に更新
+* docs_mod: tracking 索引、status の外部リンクを同様に更新
+
 ## 0.0.1 - 2026-10-11
 
 ### Added
@@ -20,7 +27,7 @@
 
 * `intend_retry` (id 非空) は手順3 (`dirty`) と同じ計画と明記。testing に期待列を追記
 * OAuth token/refresh の RequestMaterial に method / フル URL の `path` / body キーを固定。Basic はプラグイン側
-* survey_map を `answer_kind` 前提の表に直し、プラグイン SPECS リンクを `docs/specs.md` へ更新
+* survey_map を `answer_kind` 前提の表に直し、プラグイン SPECS リンクを `docs/specs.md` に更新
 * `build_survey_update_request` の `webinar_title` を任意 (`null` 可)。architecture ツリーの ASCII を修正
 
 ## 0.0.1 - 2026-10-09

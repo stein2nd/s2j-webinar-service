@@ -14,10 +14,10 @@
 
 ## 非責務
 
-* ソース追跡リンクの **作成・更新・削除** (v0.0.2 `zoom`: REST 作成不可。[Webinar 調査](https://github.com/stein2nd/s2j-webinar/blob/main/docs_mod/v0.0.2/README.md))
+* ソース追跡リンクの **作成・更新・削除** (v0.0.2 `zoom`: REST 作成不可。[Webinar 調査](https://github.com/stein2nd/s2j-webinar/blob/main/docs/operational_material_index.md))
 * QR 符号化、メディア、`_s2j_webinar_source_qr` 文書 ([Source QR docs](https://github.com/stein2nd/s2j-webinar-source-qr/tree/main/docs))
 * OAuth token 保存、HTTP 実行 (S2J Webinar プラグイン)
-* `registration_url` のクエリー改変 (付け足し・ UTM 上書き禁止。[glossary](https://github.com/stein2nd/s2j-webinar/blob/main/docs_mod/v0.0.2/glossary.md))
+* `registration_url` のクエリー改変 (付け足し、UTM 上書き禁止。[glossary](https://github.com/stein2nd/s2j-webinar/blob/main/docs/glossary_operational.md))
 * Webinar レコード `status` / `dirty` / `last_sent` の更新
 
 ## 呼び出しフロー
@@ -108,7 +108,7 @@ function map_tracking_sources_response(string $provider, int $status, string $bo
 
 ## 正規化 DTO (`items[]`)
 
-[S2J Webinar handoff REST](https://github.com/stein2nd/s2j-webinar/blob/main/docs_mod/v0.0.2/source_qr_handoff_spec.md) と [Source QR persistence](https://github.com/stein2nd/s2j-webinar-source-qr/blob/main/docs/persistence_spec.md) と一致させます。
+[S2J Webinar handoff REST](https://github.com/stein2nd/s2j-webinar/blob/main/docs/source_qr_handoff_spec.md) と [Source QR persistence](https://github.com/stein2nd/s2j-webinar-source-qr/blob/main/docs/persistence_spec.md) と一致させます。
 
 | フィールド | 型 | 規則 |
 | --- | --- | --- |
@@ -160,7 +160,7 @@ Zoom が返す配列 (または `tracking_sources` キー配下) の **実例差
 
 ### 繰り返しウェビナー
 
-GatherPress **1イベント1Webinar** 想定のため v0.0.2では調査のみ ([Webinar README](https://github.com/stein2nd/s2j-webinar/blob/main/docs_mod/v0.0.2/README.md))。Adapter に特別分岐は置かない。
+GatherPress **1イベント1Webinar** 想定のため v0.0.2では調査のみ ([Webinar README](https://github.com/stein2nd/s2j-webinar/blob/main/docs/operational_material_index.md))。Adapter に特別分岐は置かない。
 
 ## 不足コード (tracking 専用)
 
@@ -191,7 +191,7 @@ GatherPress **1イベント1Webinar** 想定のため v0.0.2では調査のみ (
 * 契約 DTO: [../contracts/tracking_import_contract.md](../contracts/tracking_import_contract.md)
 * プロバイダ・レジストリ: [provider_spec.md](./provider_spec.md)
 * リクエスト材料の形: [request_spec.md](./request_spec.md)
-* Webinar handoff: [source_qr_handoff_spec.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs_mod/v0.0.2/source_qr_handoff_spec.md)
+* Webinar handoff: [source_qr_handoff_spec.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/source_qr_handoff_spec.md)
 * PHP 公開面: [../interfaces/tracking_import_php_api.md](../interfaces/tracking_import_php_api.md)
 
 ## 改訂履歴
