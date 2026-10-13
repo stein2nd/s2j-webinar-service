@@ -4,7 +4,7 @@
 
 # S2J Webinar Service - 実装状況
 
-最終更新: 2026-10-13
+最終更新: 2026-10-14
 
 ## 仕様書 (参照元)
 
@@ -33,7 +33,7 @@
 | Source Tracking 取り込み | 実装済み (`zoom`) | 100 | [§ Tracking](#status-tracking) (12/12) |
 | PHPUnit / PHPStan / PHPCS | 実装済み | 100 | [§ 品質ゲート](#status-quality) (7/7) |
 | Packagist 公開 | 実装済み | 100 | [§ Packagist](#status-packagist) (5/5) |
-| プラグインからの require | 未実装 | 0 | [§ プラグイン](#status-plugin) (0/4) |
+| プラグインからの require | 実装中 | 50 | [§ プラグイン](#status-plugin) (2/4) |
 
 ## 100% 完了条件チェックリスト
 
@@ -217,19 +217,22 @@
 * [x] Packagist: [s2j/webinar-service](https://packagist.org/packages/s2j/webinar-service) 登録済み (`This package is auto-updated.` / dev-main)
 * [x] SemVer: CHANGELOG `0.1.0` 節、初回タグ候補 `v0.1.0` (push は手順書どおり)
 * [x] `composer validate-composer` / `composer verify-dist` (.gitattributes)
-* [x] README — `composer require` / PHP 8.1+
+* [x] README — `composer require` / PHP v8.1+
 
 ### プラグインからの require {#status-plugin}
 
-正本: S2J Webinar 側 (本 repo 外)
+正本: [S2J Webinar `docs/status.md`](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md) (本 repo 外)。プラグイン側の進捗はそちらが正本。
 
-* [ ] S2J Webinar: `composer require s2j/webinar-service`
-* [ ] プラグイン: OAuth + HTTP + `plan` ループ結合
-* [ ] プラグイン: tracking-sources REST → `build_tracking_sources_request` / `map_tracking_sources_response`
-* [ ] 結合: ステージングで create → panelist → survey 一連
+* [x] S2J Webinar: `composer.json` — `s2j/webinar-service`: `^0.1.0` ([Packagist](https://packagist.org/packages/s2j/webinar-service))
+* [x] プラグイン: OAuth + HTTP + validate → plan → map ループ ([`SyncRunner`](https://github.com/stein2nd/s2j-webinar/blob/main/includes/Sync/SyncRunner.php))
+* [ ] プラグイン: tracking-sources REST → `build_tracking_sources_request` / `map_tracking_sources_response` (運用素材 v0.0.2 — [§運用素材](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-operational))
+* [ ] 結合: ステージング Zoom — [外部結合ゲート E1–E5](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-external) + [test-results.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/test-results.md)
+
+**S2J Webinar 側 (2026-10-14):** 機能一覧は [§品質・スモーク](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-quality) の **段階3b** (`npm run test:unit:php` / wp-env) と **段階1–2** (test-results Pass 記録) 以外は到達済み。本§をすべて `[x]` にするのは、プラグインが品質 100% かつ上記2項が閉じたあと ([プラグイン status 相互参照](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-quality))。
 
 ## 補足
 
 * HTTP Adapter (プラグインの HTTP 実行) は、初版仕様の公開面に含めない。記述子上の Adapter 関数とは別物 ([data_dictionary.md](./contracts/data_dictionary.md))。
 * Meeting、録画取り込み、効果測定は、初版外。
-* **実装％** は、上記チェックリストの `[x]` / 全項の比率 (仕様分割・ Packagist ・プラグインは除く、または表記どおり)。
+* **実装％** は、上記チェックリストの `[x]` / 全項の比率 (仕様分割は除く。Packagist / プラグインは表記どおり)。
+* **プラグイン** の Zoom 実機・手動 smoke は S2J Webinar の [外部結合ゲート](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-external) に分離する。

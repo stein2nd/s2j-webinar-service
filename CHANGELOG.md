@@ -2,6 +2,12 @@
 
 ## unreleased
 
+## 0.1.0 - 2026-10-14
+
+### Changed
+
+* docs: [status](./docs/status.md) §プラグイン — [S2J Webinar](https://github.com/stein2nd/s2j-webinar) 結合進捗 (require / SyncRunner `[x]`、tracking / ステージング `[ ]`)、品質スモーク残 (段階3b / 段階1–2) を注記
+
 ## 0.1.0 - 2026-10-13
 
 Packagist 初回配布 (`s2j/webinar-service`)。
