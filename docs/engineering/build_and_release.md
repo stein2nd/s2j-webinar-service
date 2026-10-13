@@ -34,7 +34,7 @@ Packagist 側の作業です (本 repo の CI では代替できません)。
 1. [packagist.org](https://packagist.org/) にログインし、**Submit** から Repository URL を登録する。  
    `https://github.com/stein2nd/s2j-webinar-service`
 2. パッケージ名が **`s2j/webinar-service`** と一致することを確認する (`composer.json` の `name` と同じ)。
-3. **GitHub Service Hook** (Auto-update) を有効にする。以降、SemVer タグの push で Packagist が更新される。
+3. パッケージページで **This package is auto-updated.** と表示されることを確認する (GitHub Webhook。旧 GitHub Services ではない)。以降、`main` の push は **dev-main**、SemVer タグの push は安定版として取り込まれる。
 4. (任意) API 更新を CI からも行う場合は、repo の Secrets に `PACKAGIST_USERNAME` と `PACKAGIST_TOKEN` を設定する ([release.yml](../../.github/workflows/release.yml))。
 
 ## リリース手順

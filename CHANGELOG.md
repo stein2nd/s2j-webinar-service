@@ -2,28 +2,30 @@
 
 ## unreleased
 
-### Added
-
-* Packagist 向け [build_and_release](./docs/engineering/build_and_release.md)、Release CI、README インストール節
-
 ## 0.1.0 - 2026-10-13
 
 Packagist 初回配布 (`s2j/webinar-service`)。
 
 ### Added
 
+* Packagist [s2j/webinar-service](https://packagist.org/packages/s2j/webinar-service) 登録 (GitHub auto-update / dev-main)
+
 * PHP ライブラリ初版 (`src/`、`S2J\WebinarService\` 公開関数、Zoom 記述子): 正規化・検証、操作計画、Panelist 差分、CRUD/panelist/survey 材料、結果写像、OAuth 材料、tracking 取り込み
 * PHPUnit: 102件 (request/result/survey/tracking 仕様行、契約 JSON `tests/Fixtures/contracts/`、モック provider 回帰)
-* CI `php-quality`: `composer install` → `scripts/verify/all.zsh` (validate / dist / PHPUnit / PHPStan / PHPCS)
+* CI `php-quality` / `release` (タグ): `scripts/verify/all.zsh` (validate / dist / PHPUnit / PHPStan / PHPCS)
 * `composer validate-composer` / `composer verify-dist`、Packagist 向け `composer.json` メタ
-* npm: `lint:docs`、`quality` → verify スクリプト、PHP 用 `test` / `phpstan` / `phpcs`
+* README: `composer require` / PHP 8.1+、[build_and_release](./docs/engineering/build_and_release.md)
+* npm: `lint:docs`、`quality`、PHP 用 `test` / `phpstan` / `phpcs`
 
 ### Changed
+
+* docs: [build_and_release](./docs/engineering/build_and_release.md) の Hook 確認、[status](./docs/status.md) Packagist 完了
+* npm: Webinar 向け `scripts` (`quality` → `scripts/verify/all.zsh`)、`private: true`、Similarity 由来の codegen / TS 用 script 削除
 
 * 検証: 登壇者が複数行のとき、不足コードを入力順で返す (`panelist_incomplete` / `panelist_email_invalid`)
 * `ProviderRegistry::register` / `resetForTesting` (テスト用)
 * `build_survey_update_request`: `webinar_title` 任意時の SoT 委譲を spec どおりに
-* docs: [status](./docs/status.md) 機能一覧の完了条件チェックリストと実装％を更新、[ci](./docs/engineering/ci.md) に verify スクリプトを明記
+* docs: [status](./docs/status.md) 完了条件チェックリスト、[ci](./docs/engineering/ci.md) verify / release
 
 ## 0.0.1 - 2026-10-12
 

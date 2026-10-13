@@ -32,7 +32,7 @@
 | アンケート写像 | 実装済み (`zoom`) | 100 | [§ アンケート](#status-survey) (9/9) |
 | Source Tracking 取り込み | 実装済み (`zoom`) | 100 | [§ Tracking](#status-tracking) (12/12) |
 | PHPUnit / PHPStan / PHPCS | 実装済み | 100 | [§ 品質ゲート](#status-quality) (7/7) |
-| Packagist 公開 | 実装中 | 80 | [§ Packagist](#status-packagist) (4/5) |
+| Packagist 公開 | 実装済み | 100 | [§ Packagist](#status-packagist) (5/5) |
 | プラグインからの require | 未実装 | 0 | [§ プラグイン](#status-plugin) (0/4) |
 
 ## 100% 完了条件チェックリスト
@@ -214,7 +214,7 @@
 正本: [build_and_release.md](./engineering/build_and_release.md)
 
 * [x] CI: [.github/workflows/release.yml](../.github/workflows/release.yml) — タグ `v*.*.*` で品質ゲート + 任意 Packagist API 更新
-* [ ] Packagist: `s2j/webinar-service` 初回登録 ([build_and_release.md](./engineering/build_and_release.md) § Packagist 初回登録)
+* [x] Packagist: [s2j/webinar-service](https://packagist.org/packages/s2j/webinar-service) 登録済み (`This package is auto-updated.` / dev-main)
 * [x] SemVer: CHANGELOG `0.1.0` 節、初回タグ候補 `v0.1.0` (push は手順書どおり)
 * [x] `composer validate-composer` / `composer verify-dist` (.gitattributes)
 * [x] README — `composer require` / PHP 8.1+
