@@ -1,5 +1,6 @@
 # Composer dist (git archive / Packagist / GitHub / composer archive)
 # PHP ライブラリ配布物に含めない開発専用パス
+/build export-ignore
 /tools/generated export-ignore
 /node_modules export-ignore
 /vendor export-ignore

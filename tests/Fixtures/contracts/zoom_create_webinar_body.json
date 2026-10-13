@@ -1,0 +1,23 @@
+{
+    "topic": "Snap Title",
+    "start_time": "2026-10-09T15:00:00",
+    "timezone": "Asia/Tokyo",
+    "duration": 90,
+    "type": 5,
+    "settings": {
+        "auto_recording": "cloud",
+        "audio": "voip",
+        "host_video": false,
+        "panelists_video": false,
+        "hd_video": false,
+        "meeting_authentication": false,
+        "approval_type": 0,
+        "contact_name": "Taro",
+        "contact_email": "taro@example.com",
+        "question_and_answer": {
+            "enable": true,
+            "allow_anonymous_questions": true,
+            "answer_questions": "only"
+        }
+    }
+}

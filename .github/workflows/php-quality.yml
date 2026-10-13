@@ -1,0 +1,49 @@
+name: PHP Quality
+
+on:
+  push:
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "composer.json"
+      - "composer.lock"
+      - "phpunit.xml"
+      - "phpstan.neon"
+      - "phpcs.xml.dist"
+      - ".gitattributes"
+      - "scripts/verify/**"
+      - "scripts/verify-composer-dist.sh"
+      - ".github/workflows/php-quality.yml"
+  pull_request:
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "composer.json"
+      - "composer.lock"
+      - "phpunit.xml"
+      - "phpstan.neon"
+      - "phpcs.xml.dist"
+      - ".gitattributes"
+      - "scripts/verify/**"
+      - "scripts/verify-composer-dist.sh"
+      - ".github/workflows/php-quality.yml"
+
+jobs:
+  php-quality:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          coverage: none
+          tools: composer:v2
+
+      - name: Install dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: PHP quality (local script = CI)
+        run: zsh scripts/verify/all.zsh

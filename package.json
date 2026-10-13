@@ -1,8 +1,8 @@
 {
     "name": "s2j-webinar-service",
     "version": "0.0.1",
-    "description": "A pure PHP library for building a Zoom Webinar Request (WP-Independent)",
-    "type": "module",
+    "private": true,
+    "description": "A pure PHP library for building a Webinar Request (WP-Independent)",
     "author": "Koutarou ISHIKAWA",
     "license": "GPL-3.0-or-later",
     "repository": {
@@ -13,23 +13,26 @@
     "bugs": {
         "url": "https://github.com/stein2nd/s2j-webinar-service/issues"
     },
-    "keywords": [],
-    "workspaces": [],
-    "directories": {},
-    "files": [],
-    "main": "",
+    "keywords": [
+        "php",
+        "library",
+        "webinar",
+        "wordpress",
+        "gatherpress"
+    ],
     "devDependencies": {
         "@s2j/docs-linter": "^1.0.27"
     },
     "scripts": {
-        "generate": "./scripts/generate/all.zsh",
-        "verify:codegen": "./scripts/generate/all.zsh && git diff --exit-code",
-        "build:ts-client": "npm run build -w @s2j/similarity-client",
-        "test:ts-client": "npm test -w @s2j/similarity-client",
-        "lint:docs": "s2j-docs-linter ./README.md ./CHANGELOG.md ./docs/**/*.md ./docs_mod/**/*.md"
+        "lint:docs": "s2j-docs-linter ./README.md ./CHANGELOG.md ./docs/**/*.md ./docs_mod/**/*.md",
+        "test": "composer test",
+        "phpstan": "composer phpstan",
+        "phpcs": "composer phpcs",
+        "validate:composer": "composer validate-composer",
+        "verify:dist": "composer verify-dist",
+        "quality": "zsh scripts/verify/all.zsh"
     },
     "allowScripts": {
-        "@s2j/docs-linter": true,
-        "esbuild": true
+        "@s2j/docs-linter": true
     }
 }
