@@ -2,6 +2,13 @@
 
 ## unreleased
 
+## 0.1.0 - 2026-10-15
+
+### Changed
+
+* dev: `@s2j/docs-linter` ^1.0.29 (lockfile 更新)
+* docs lint: `.textlintrc.json` — [status](./docs/status.md) 見出しアンカー `#status-*` を prh 除外
+
 ## 0.1.0 - 2026-10-14
 
 ### Changed
