@@ -44,7 +44,12 @@
         "phpstan": "phpstan analyse",
         "phpcs": "phpcs -n",
         "validate-composer": "composer validate --strict",
-        "verify-dist": "bash scripts/verify-composer-dist.sh"
+        "verify-dist": "bash scripts/verify-composer-dist.sh",
+        "phpcbf": "@php vendor/bin/phpcbf",
+        "lint:php": [
+            "@phpstan",
+            "@phpcs"
+        ]
     },
     "config": {
         "sort-packages": true

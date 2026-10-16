@@ -1,6 +1,6 @@
 {
     "name": "s2j-webinar-service",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "private": true,
     "description": "A pure PHP library for building a Webinar Request (WP-Independent)",
     "author": "Koutarou ISHIKAWA",
@@ -25,12 +25,16 @@
     },
     "scripts": {
         "lint:docs": "s2j-docs-linter ./README.md ./CHANGELOG.md ./docs/**/*.md ./docs_mod/**/*.md",
-        "test": "composer test",
+        "lint:php": "composer lint:php",
         "phpstan": "composer phpstan",
         "phpcs": "composer phpcs",
+        "test": "composer test",
         "validate:composer": "composer validate-composer",
         "verify:dist": "composer verify-dist",
-        "quality": "zsh scripts/verify/all.zsh"
+        "quality": "zsh scripts/verify/all.zsh",
+        "pretest:unit:php:local": "composer install --no-interaction --prefer-dist",
+        "test:unit:php:local": "composer test",
+        "pretest:lint:php": "composer install --no-interaction --prefer-dist"
     },
     "allowScripts": {
         "@s2j/docs-linter": true

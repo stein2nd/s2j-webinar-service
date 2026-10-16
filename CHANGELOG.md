@@ -2,6 +2,13 @@
 
 ## unreleased
 
+## 0.1.1 - 2026-10-16
+
+### Added
+
+* Composer: `lint:php` (PHPStan + PHPCS)、`phpcbf`
+* npm: `lint:php`、`test:unit:php:local` (preinstall `composer install`)
+
 ## 0.1.0 - 2026-10-15
 
 ### Changed
