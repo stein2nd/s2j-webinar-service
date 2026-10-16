@@ -1,6 +1,6 @@
 {
     "name": "s2j-webinar-service",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "private": true,
     "description": "A pure PHP library for building a Webinar Request (WP-Independent)",
     "author": "Koutarou ISHIKAWA",
@@ -31,7 +31,7 @@
         "test": "composer test",
         "validate:composer": "composer validate-composer",
         "verify:dist": "composer verify-dist",
-        "quality": "zsh scripts/verify/all.zsh",
+        "quality": "bash scripts/verify/all.sh",
         "pretest:unit:php:local": "composer install --no-interaction --prefer-dist",
         "test:unit:php:local": "composer test",
         "pretest:lint:php": "composer install --no-interaction --prefer-dist"

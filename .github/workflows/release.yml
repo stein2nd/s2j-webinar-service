@@ -23,7 +23,7 @@ jobs:
         run: composer install --no-interaction --prefer-dist
 
       - name: PHP quality (release gate)
-        run: zsh scripts/verify/all.zsh
+        run: bash scripts/verify/all.sh
 
   packagist-update:
     needs: php-quality

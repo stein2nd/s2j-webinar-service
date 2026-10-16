@@ -11,9 +11,9 @@ WordPress 統合ジョブは、本ライブラリ単体では持ちません。
 
 | ジョブ | 内容 |
 | --- | --- |
-| php-quality | `composer install` → [`scripts/verify/all.zsh`](../../scripts/verify/all.zsh): validate, dist, PHPUnit, PHPStan, PHPCS |
+| php-quality | `composer install` → [`scripts/verify/all.sh`](../../scripts/verify/all.sh): validate, dist, PHPUnit, PHPStan, PHPCS |
 | docs-lint | `README.md` / `CHANGELOG.md` / `docs/**` / `docs_mod/**` 変更時に `npm run lint:docs` |
-| release | SemVer タグ push で `scripts/verify/all.zsh` (任意: Packagist API 更新) |
+| release | SemVer タグ push で `scripts/verify/all.sh` (任意: Packagist API 更新) |
 
 ローカルでは `npm run quality` が php-quality と同じ並びです。`composer install` は事前に実行してください。
 

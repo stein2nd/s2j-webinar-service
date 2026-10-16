@@ -2,6 +2,12 @@
 
 ## unreleased
 
+## 0.1.2 - 2026-10-16
+
+### Fixed
+
+* CI: `scripts/verify/all.sh` (bash) — Actions ランナーに zsh がなく php-quality が失敗していた問題
+
 ## 0.1.1 - 2026-10-16
 
 ### Added
