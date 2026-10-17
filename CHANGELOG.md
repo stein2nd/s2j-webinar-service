@@ -2,6 +2,12 @@
 
 ## unreleased
 
+## 0.1.2 - 2026-10-17
+
+### Changed
+
+* docs: [status](./docs/status.md) §プラグイン — [S2J Webinar](https://github.com/stein2nd/s2j-webinar) 側の段階1〜2手動 Pass (2026-10-17)、品質スモーク未了1項 (Service §プラグイン相互 `[x]`)、プラグイン [operational_material_index](https://github.com/stein2nd/s2j-webinar/blob/main/docs/operational_material_index.md) §実装優先順を注記
+
 ## 0.1.2 - 2026-10-16
 
 ### Fixed

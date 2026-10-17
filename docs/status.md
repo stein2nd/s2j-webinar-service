@@ -4,7 +4,7 @@
 
 # S2J Webinar Service - 実装状況
 
-最終更新: 2026-10-14
+最終更新: 2026-10-17
 
 ## 仕様書 (参照元)
 
@@ -16,7 +16,7 @@
 
 ## 機能一覧
 
-**完了条件列:** 100% 到達用チェックリスト (1行 = PHPUnit ケース1件、または CI ステップ1件)。`[x]` = 満たし済み、`[ ]` = 未。正本 spec は各 § の見出しリンク。
+**完了条件列:** 100% 到達用チェックリスト (1行 = PHPUnit ケース1件、または CI ステップ1件)。`[x]` = 満たし済み、`[ ]` = 未。正本 spec は各§の見出しリンク。
 
 | 機能名 | 実装済み/未実装 | 実装％ | 完了条件 (100%) |
 | --- | --- | --- | --- |
@@ -225,10 +225,10 @@
 
 * [x] S2J Webinar: `composer.json` — `s2j/webinar-service`: `^0.1.0` ([Packagist](https://packagist.org/packages/s2j/webinar-service))
 * [x] プラグイン: OAuth + HTTP + validate → plan → map ループ ([`SyncRunner`](https://github.com/stein2nd/s2j-webinar/blob/main/includes/Sync/SyncRunner.php))
-* [ ] プラグイン: tracking-sources REST → `build_tracking_sources_request` / `map_tracking_sources_response` (運用素材 v0.0.2 — [§運用素材](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-operational))
+* [ ] プラグイン: tracking-sources REST → `build_tracking_sources_request` / `map_tracking_sources_response` (運用素材 — [§運用素材](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-operational))
 * [ ] 結合: ステージング Zoom — [外部結合ゲート E1–E5](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-external) + [test-results.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/test-results.md)
 
-**S2J Webinar 側 (2026-10-14):** 機能一覧は [§品質・スモーク](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-quality) の **段階3b** (`npm run test:unit:php` / wp-env) と **段階1–2** (test-results Pass 記録) 以外は到達済み。本§をすべて `[x]` にするのは、プラグインが品質 100% かつ上記2項が閉じたあと ([プラグイン status 相互参照](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-quality))。
+**S2J Webinar 側 (2026-10-17):** Marketplace 不要範囲のテストは [test-results.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/test-results.md) に手動 Pass 記録済み (段階1–2 checklist)。**品質・スモーク** 残 **1件** — Service §プラグイン相互 `[x]`。**運用素材** 3件は [operational_material_index.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/operational_material_index.md) §実装優先順位 (P1 CoverArt → P2 定義/取り込み REST → P3 配配メール対象外)。
 
 ## 補足
 
