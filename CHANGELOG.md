@@ -2,6 +2,12 @@
 
 ## unreleased
 
+## 0.1.4 - 2026-10-19
+
+### Changed
+
+* docs: [status](./docs/status.md) §プラグイン — [S2J Webinar](https://github.com/stein2nd/s2j-webinar) が `GET …/tracking-sources` で `build_tracking_sources_request` / `map_tracking_sources_response` を接続 (運用素材 P2b)。CoverArt / 定義 REST も合わせ Local 完結 `[x]`。本 repo §プラグイン **3/4** (残: ステージング Zoom 外部結合)
+
 ## 0.1.3 - 2026-10-19
 
 ### Changed

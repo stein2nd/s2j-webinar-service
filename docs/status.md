@@ -33,7 +33,7 @@
 | Source Tracking 取り込み | 実装済み (`zoom`) | 100 | [§ Tracking](#status-tracking) (12/12) |
 | PHPUnit / PHPStan / PHPCS | 実装済み | 100 | [§ 品質ゲート](#status-quality) (7/7) |
 | Packagist 公開 | 実装済み | 100 | [§ Packagist](#status-packagist) (5/5) |
-| プラグインからの require | 実装中 | 50 | [§ プラグイン](#status-plugin) (2/4) |
+| プラグインからの require | 実装中 | 75 | [§ プラグイン](#status-plugin) (3/4) |
 
 ## 100% 完了条件チェックリスト
 
@@ -225,10 +225,10 @@
 
 * [x] S2J Webinar: `composer.json` — `s2j/webinar-service`: `^0.1.0` ([Packagist](https://packagist.org/packages/s2j/webinar-service))
 * [x] プラグイン: OAuth + HTTP + validate → plan → map ループ ([`SyncRunner`](https://github.com/stein2nd/s2j-webinar/blob/main/includes/Sync/SyncRunner.php))
-* [ ] プラグイン: tracking-sources REST → `build_tracking_sources_request` / `map_tracking_sources_response` (運用素材 — [§運用素材](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-operational))
-* [ ] 結合: ステージング Zoom — [外部結合ゲート E1–E5](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-external) + [test-results.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/test-results.md)
+* [x] プラグイン: `GET …/tracking-sources` REST → `build_tracking_sources_request` / `map_tracking_sources_response` ([`TrackingSourcesImport.php`](https://github.com/stein2nd/s2j-webinar/blob/main/includes/SourceQr/TrackingSourcesImport.php)、Integration [`TrackingSourcesRestTest.php`](https://github.com/stein2nd/s2j-webinar/blob/main/tests/Integration/TrackingSourcesRestTest.php) — [§運用素材 P2b](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-operational))
+* [ ] 結合: ステージング Zoom — [外部結合ゲート E1–E4](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-external) + [test-results.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/test-results.md)
 
-**S2J Webinar 側 (2026-10-19):** Marketplace 不要範囲のテストは [test-results.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/test-results.md) に手動 Pass 記録済み (段階1–2: checklist)。**品質・スモーク** 残 **1件** — Service §プラグイン相互 `[x]`。**運用素材:** P2a (`tracking-source-definitions` REST、Source QR 引き渡し) 着手済み。P2b tracking 取り込み REST → 本ライブラリ写像は上記 `[ ]` のとおり。**優先順:** [operational_material_index.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/operational_material_index.md) §実装の優先順位 (P1: CoverArt → P2: 定義/取り込み REST → P3: 配配メール対象外)。
+**S2J Webinar 側 (2026-10-19):** [§品質・スモーク](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-quality) — 段階3a **22**、3b **22 + 14**、`lint:php`、smoke (tracking-sources 含む)。**運用素材 Local 完結:** **P1** CoverArt / フライヤー、**P2a** 定義 REST、**P2b** 取り込み REST いずれも `[x]` (P3 配配メールは v0.0.2 対象外)。**Local 可 (E*):** Source QR **E5** / **E7** Pass。**残 (要 HTTPS):** E1–E4 実 Zoom。本 repo §プラグイン相互 `[x]` は上記 P2b 到達で満たし済み。
 
 ## 補足
 
