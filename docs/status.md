@@ -4,7 +4,7 @@
 
 # S2J Webinar Service - 実装状況
 
-最終更新: 2026-10-17
+最終更新: 2026-10-19
 
 ## 仕様書 (参照元)
 
@@ -228,7 +228,7 @@
 * [ ] プラグイン: tracking-sources REST → `build_tracking_sources_request` / `map_tracking_sources_response` (運用素材 — [§運用素材](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-operational))
 * [ ] 結合: ステージング Zoom — [外部結合ゲート E1–E5](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-external) + [test-results.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/test-results.md)
 
-**S2J Webinar 側 (2026-10-17):** Marketplace 不要範囲のテストは [test-results.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/test-results.md) に手動 Pass 記録済み (段階1–2 checklist)。**品質・スモーク** 残 **1件** — Service §プラグイン相互 `[x]`。**運用素材** 3件は [operational_material_index.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/operational_material_index.md) §実装優先順位 (P1 CoverArt → P2 定義/取り込み REST → P3 配配メール対象外)。
+**S2J Webinar 側 (2026-10-19):** Marketplace 不要範囲のテストは [test-results.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/test-results.md) に手動 Pass 記録済み (段階1–2: checklist)。**品質・スモーク** 残 **1件** — Service §プラグイン相互 `[x]`。**運用素材:** P2a (`tracking-source-definitions` REST、Source QR 引き渡し) 着手済み。P2b tracking 取り込み REST → 本ライブラリ写像は上記 `[ ]` のとおり。**優先順:** [operational_material_index.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/operational_material_index.md) §実装の優先順位 (P1: CoverArt → P2: 定義/取り込み REST → P3: 配配メール対象外)。
 
 ## 補足
 

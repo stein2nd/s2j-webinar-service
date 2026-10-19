@@ -2,11 +2,12 @@
 
 ## unreleased
 
-## 0.1.2 - 2026-10-17
+## 0.1.3 - 2026-10-19
 
 ### Changed
 
 * docs: [status](./docs/status.md) §プラグイン — [S2J Webinar](https://github.com/stein2nd/s2j-webinar) 側の段階1〜2手動 Pass (2026-10-17)、品質スモーク未了1項 (Service §プラグイン相互 `[x]`)、プラグイン [operational_material_index](https://github.com/stein2nd/s2j-webinar/blob/main/docs/operational_material_index.md) §実装優先順を注記
+* docs: [status](./docs/status.md) §プラグイン — 運用素材 P2a (`tracking-source-definitions` REST、Source QR 引き渡し) と Gutenberg panelist / GatherPress join URL 修正を [S2J Webinar](https://github.com/stein2nd/s2j-webinar) 進捗として注記 (tracking 取り込み REST → Service 写像は引き続き `[ ]`)
 
 ## 0.1.2 - 2026-10-16
 
