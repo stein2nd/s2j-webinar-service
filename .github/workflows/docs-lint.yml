@@ -1,5 +1,8 @@
 name: Lint Docs
 
+env:
+  PHP_VERSION: "8.3"
+
 on:
   push:
     paths:
@@ -7,12 +10,16 @@ on:
       - "**/*.md"
       - ".textlintrc*"
       - "package.json"
+      - "composer.json"
+      - ".github/workflows/docs-lint.yml"
   pull_request:
     paths:
       - "docs/**/*.md"
       - "**/*.md"
       - ".textlintrc*"
       - "package.json"
+      - "composer.json"
+      - ".github/workflows/docs-lint.yml"
 
 jobs:
   lint-docs:
@@ -31,3 +38,19 @@ jobs:
 
       - name: Run Docs Linter
         run: npm run lint:docs
+
+  composer-platform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          coverage: none
+          tools: composer:v2
+
+      - name: Validate composer.json (PHP platform)
+        run: composer validate --strict

@@ -1,6 +1,6 @@
 {
     "name": "s2j-webinar-service",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "private": true,
     "description": "A pure PHP library for building a Webinar Request (WP-Independent)",
     "author": "Koutarou ISHIKAWA",
@@ -21,7 +21,7 @@
         "gatherpress"
     ],
     "devDependencies": {
-        "@s2j/docs-linter": "^1.0.29"
+        "@s2j/docs-linter": "^1.0.30"
     },
     "scripts": {
         "lint:docs": "s2j-docs-linter ./README.md ./CHANGELOG.md ./docs/**/*.md ./docs_mod/**/*.md",

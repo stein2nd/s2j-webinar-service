@@ -4,7 +4,7 @@ GatherPress のイベントから Zoom Webinar を作成・更新するリクエ
 
 ## 要件
 
-* **PHP 8.1以上**
+* **PHP 8.3以上** ([WordPress 必須要件](https://ja.wordpress.org/about/requirements/) の推奨に合わせる)
 
 ## インストール
 

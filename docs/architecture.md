@@ -77,7 +77,7 @@ s2j-webinar-service/
 
 | 項目 | 方針 |
 | --- | --- |
-| PHP | v8.1以上 |
+| PHP | v8.3以上 |
 | テスト | PHPUnit (WordPress なし、Zoom ライブなし) |
 | 静的解析 | PHPStan |
 | スタイル | PHPCS (PSR-12を基本) |

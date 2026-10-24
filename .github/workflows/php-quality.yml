@@ -1,5 +1,8 @@
 name: PHP Quality
 
+env:
+  PHP_VERSION: "8.3"
+
 on:
   push:
     paths:
@@ -38,7 +41,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: "8.3"
+          php-version: ${{ env.PHP_VERSION }}
           coverage: none
           tools: composer:v2
 

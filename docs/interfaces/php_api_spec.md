@@ -12,7 +12,7 @@
 | --- | --- |
 | Composer 名 | `s2j/webinar-service` |
 | 名前空間 | `S2J\WebinarService\` |
-| PHP | `>=8.1` |
+| PHP | `>=8.3` |
 
 ## 公開 API (初版)
 

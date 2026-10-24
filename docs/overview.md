@@ -20,7 +20,7 @@
 | Composer 名 | `s2j/webinar-service` |
 | 名前空間 | `S2J\WebinarService\` |
 | ライセンス | GPL-3.0-or-later |
-| PHP | v8.1以上 (想定) |
+| PHP | v8.3以上 |
 
 ## 提供機能
 

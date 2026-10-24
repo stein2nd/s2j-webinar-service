@@ -217,7 +217,7 @@
 * [x] Packagist: [s2j/webinar-service](https://packagist.org/packages/s2j/webinar-service) 登録済み (`This package is auto-updated.` / dev-main)
 * [x] SemVer: CHANGELOG `0.1.0` 節、初回タグ候補 `v0.1.0` (push は手順書どおり)
 * [x] `composer validate-composer` / `composer verify-dist` (.gitattributes)
-* [x] README — `composer require` / PHP v8.1+
+* [x] README — `composer require` / PHP v8.3+
 
 ### プラグインからの require {#status-plugin}
 

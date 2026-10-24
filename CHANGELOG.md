@@ -2,6 +2,15 @@
 
 ## unreleased
 
+## 0.2.0 - 2026-10-24
+
+### Changed
+
+* **Breaking:** `composer.json` / `composer.lock` — `require.php` **>=8.3**、`config.platform.php` **8.3.0** (WordPress [必須要件](https://ja.wordpress.org/about/requirements/) 推奨に合わせる)
+* docs: README、[overview](./docs/overview.md)、[architecture](./docs/architecture.md)、[status](./docs/status.md)、[php_api_spec](./docs/interfaces/php_api_spec.md)、[ci.md](./docs/engineering/ci.md) — PHP 下限 **8.3**
+* CI: `docs-lint` / `php-quality` / `release` — 共通 `PHP_VERSION: "8.3"`。`docs-lint` に job `composer-platform` (`composer validate --strict`)
+* npm: `package.json` **0.2.0** (private メタ。Packagist は Git タグ SemVer)
+
 ## 0.1.4 - 2026-10-19
 
 ### Changed
