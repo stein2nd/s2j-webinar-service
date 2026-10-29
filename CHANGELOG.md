@@ -2,6 +2,13 @@
 
 ## unreleased
 
+## 0.2.1 - 2026-10-29
+
+### Changed
+
+* dev: `@s2j/docs-linter` ^1.0.31 (lockfile)
+* dev: PHPStan v2.3.4 (`composer.lock`)
+
 ## 0.2.0 - 2026-10-24
 
 ### Changed
