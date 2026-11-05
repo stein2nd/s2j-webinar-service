@@ -18,13 +18,13 @@
 
 ### provider
 
-レコード上の接続先 ID (文字列)。形の正本は [../core/provider_spec.md](../core/provider_spec.md) です。初版の実装は `zoom` のみです。未知の値は検証・リクエスト組立・応答写像で不足 `provider_unsupported` です (例外にしない)。管理画面での選択は呼び出し側 (プラグイン) です。
+レコード上の接続先 ID (文字列)。形の正本は [../core/provider_spec.md](../core/provider_spec.md) です。初版の実装は `zoom` のみです。未知の値は検証・リクエスト組立・応答マッピングで不足 `provider_unsupported` です (例外にしない)。管理画面での選択は呼び出し側 (プラグイン) です。
 
 | 用語 | 意味 |
 | --- | --- |
 | `provider` | レコード上の接続先 ID |
 | 記述子 / `WebinarProvider` | レジストリの1件 (`id`、案内、Adapter 関数) |
-| Adapter (記述子上) | `build_request` / `map_result` / `oauth_materials` などの写像関数 |
+| Adapter (記述子上) | `build_request` / `map_result` / `oauth_materials` などのマッピング関数 |
 | HTTP Adapter | プラグイン側の HTTP 実行。本ライブラリの公開面には含めない |
 | `provider_unsupported` | レジストリに記述子がない場合の不足コード |
 
@@ -56,11 +56,11 @@
 | --- | --- |
 | Deficiency | **不足コード文字列1つ** (例: `provider_unsupported`)。一覧は [../core/validation_spec.md](../core/validation_spec.md) |
 | `deficiencies` | 公開封筒の `string[]` (`validate` / `build_webinar_request` / `map_webinar_response`) |
-| deficiency code | 検証・材料組立・応答写像で使うコード名。Deficiency と同義 |
+| deficiency code | 検証・材料組立・応答マッピングで使うコード名。Deficiency と同義 |
 
 ### answer_kind vs Zoom type
 
-Survey 文書の `answer_kind` (`short` 等) と Zoom の `type` (`short_answer` 等) を混同しません。写像は [../core/survey_map_spec.md](../core/survey_map_spec.md)。
+Survey 文書の `answer_kind` (`short` 等) と Zoom の `type` (`short_answer` 等) を混同しません。マッピングは [../core/survey_map_spec.md](../core/survey_map_spec.md)。
 
 ## 一貫性ルール
 

@@ -1,8 +1,4 @@
-<!--
-目的：「API 応答からレコードへの写像」の明文化
--->
-
-# S2J Webinar Service - 結果写像の仕様
+# S2J Webinar Service - 結果マッピングの仕様
 
 本ファイルは **Zoom (`zoom`) 記述子** の `map_result` 正本です。公開入口は `map_webinar_response` ([../interfaces/php_api_spec.md](../interfaces/php_api_spec.md))。レジストリは [provider_spec.md](./provider_spec.md)。
 
@@ -25,13 +21,13 @@ start_url?  任意。揮発。レコード正本には書かない
 * HTTP の実行
 * リトライ (必要ならプラグインが再 `plan`)
 * `start_url` の永続化 (保存しない。プラグインが「Zoom で開く」でその場だけ使う)
-* `dirty` / `synced` の **業務判定** (どの項目が変わったか。呼び出し側)。本写像は HTTP 成否に応じた status だけを書いてよい
+* `dirty` / `synced` の **業務判定** (どの項目が変わったか。呼び出し側)。本マッピングは HTTP 成否に応じた status だけを書いてよい
 
 ## 成功・失敗の判定
 
 * **成功:** HTTP ステータスが `2xx` (create の `201` を含む)
 * **失敗:** それ以外、または (create のように id が必要なのに) ボディが解釈不能
-* update / delete / panelist / survey の成功は **`204` かつ body null** がありうる。その場合も成功写像を適用する
+* update / delete / panelist / survey の成功は **`204` かつ body null** がありうる。その場合も成功マッピングを適用する
 * create 成功は body から `id` 等を読む
 * 本ライブラリはリトライしない
 
@@ -42,7 +38,7 @@ start_url?  任意。揮発。レコード正本には書かない
 * `webinar_id` ← 応答の `id`
 * `webinar_uuid` ← 応答にあれば埋める
 * `join_url` ← 応答の `join_url`
-* `status` ← `synced` (続く Panelist / survey の成否は、それぞれの写像で更新する)
+* `status` ← `synced` (続く Panelist / survey の成否は、それぞれのマッピングで更新する)
 * `last_error` ← `""`
 
 ## create / update / panelist / survey 失敗

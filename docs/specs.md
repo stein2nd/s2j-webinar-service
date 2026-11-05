@@ -16,7 +16,7 @@
 1. **[concept.md](./concept.md)** — なぜ存在するか
 2. **[contracts/](./contracts/data_contract_spec.md)** — 入出力契約
 3. **[architecture.md](./architecture.md)** — レイヤと依存
-4. **[core/](./core/record_spec.md)** — レコード・検証・操作・写像
+4. **[core/](./core/record_spec.md)** — レコード・検証・操作・マッピング
 5. **[interfaces/](./interfaces/usage_spec.md)** — 呼び出し方
 6. **[engineering/](./engineering/ci.md)** — CI と配布
 
@@ -54,13 +54,13 @@
 | --- | --- |
 | [レコード](./core/record_spec.md) | Webinar レコードの形と `status` |
 | [検証](./core/validation_spec.md) | 項目の検証と不足コード |
-| [プロバイダ・レジストリ](./core/provider_spec.md) | 記述子 + 写像。初版は `zoom` のみ |
+| [プロバイダ・レジストリ](./core/provider_spec.md) | 記述子 + マッピング。初版は `zoom` のみ |
 | [操作計画](./core/operation_spec.md) | 次の操作 (`create` / `update` 等) |
 | [Panelist](./core/panelist_spec.md) | 登壇者差分 (追加・削除) |
 | [リクエスト材料](./core/request_spec.md) | メソッド・パス・ボディ (Authorization なし) |
-| [結果写像](./core/result_spec.md) | API 応答からレコードへの写像 |
+| [結果マッピング](./core/result_spec.md) | API 応答からレコードへのマッピング |
 | [OAuth 材料](./core/oauth_spec.md) | 認可・トークン交換のリクエスト材料 |
-| [アンケート写像](./core/survey_map_spec.md) | Survey 文書 → Zoom survey PATCH |
+| [アンケートマッピング](./core/survey_map_spec.md) | Survey 文書 → Zoom survey PATCH |
 | [Source Tracking 取り込み](./core/tracking_import_spec.md) | `zoom` GET → 正規化 `items[]` (同期パイプライン外) |
 
 ### What (契約)
@@ -68,7 +68,7 @@
 | ドキュメント | 内容 |
 | --- | --- |
 | [入出力仕様](./contracts/data_contract_spec.md) | DTO、結果レコード |
-| [Source Tracking 契約](./contracts/tracking_import_contract.md) | 取り込み `items[]` / build ・map 封筒 |
+| [Source Tracking 契約](./contracts/tracking_import_contract.md) | 取り込み `items[]` / build、map 封筒 |
 | [データ辞書](./contracts/data_dictionary.md) | 用語、型、制約 |
 
 ### How (インターフェイス)
@@ -118,7 +118,7 @@ Similarity Service にあるが、初版の本ライブラリでは持たない�
 
 ```mermaid
 flowchart TD
-  A["interfaces (公開関数)"] --> B["core (検証・操作・写像)"]
+  A["interfaces (公開関数)"] --> B["core (検証・操作・マッピング)"]
   A --> C["contracts (DTO)"]
   B --> C
 ```
@@ -133,7 +133,7 @@ flowchart TD
 
 | 対象 | 正本 |
 | --- | --- |
-| Webinar レコード・検証・操作・写像の規則 | [core/](./core/record_spec.md) |
+| Webinar レコード・検証・操作・マッピングの規則 | [core/](./core/record_spec.md) |
 | 入出力の型とフィールド | [contracts/data_contract_spec.md](./contracts/data_contract_spec.md) |
 | 用語の意味 | [contracts/data_dictionary.md](./contracts/data_dictionary.md) |
 | 公開 PHP API | [interfaces/php_api_spec.md](./interfaces/php_api_spec.md) |

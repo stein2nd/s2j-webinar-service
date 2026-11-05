@@ -121,7 +121,7 @@ create ボディの時刻例: `start_time` = `2026-10-09T15:00:00`、`timezone` 
 
 | フィールド | 型 | 説明 |
 | --- | --- | --- |
-| record | WebinarRecord | 写像後 (未知 provider 時は入力と同じ) |
+| record | WebinarRecord | マッピング後 (未知 provider 時は入力と同じ) |
 | start_url | string | 任意。揮発 |
 | deficiencies | string[] | 空なら成功。未知 provider は `provider_unsupported` |
 

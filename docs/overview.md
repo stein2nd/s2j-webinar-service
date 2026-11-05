@@ -26,10 +26,10 @@
 
 * Webinar レコードの検証と正規化
 * 次の操作の計画 (`create` / `update` / `delete` / `get` / Panelist 追加・削除 / `attach_survey`。何もしない場合は空配列)
-* プロバイダ記述子向けリクエスト材料・応答写像 (**初版は Zoom**)。公開入口はレジストリ経由 (`Authorization` なし)
+* プロバイダ記述子向けリクエスト材料・応答マッピング (**初版は Zoom**)。公開入口はレジストリ経由 (`Authorization` なし)
 * Panelist の差分 (メール基準)
 * OAuth 認可・トークン交換の材料 (**初版 Zoom**。トークンは保存しない)
-* `attach_survey`: Survey 文書 → 接続先アンケート PATCH ボディへの写像 (初版 Zoom)
+* `attach_survey`: Survey 文書 → 接続先アンケート PATCH ボディへのマッピング (初版 Zoom)
 
 ## 責務
 

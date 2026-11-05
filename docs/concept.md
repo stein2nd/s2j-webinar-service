@@ -9,7 +9,7 @@
 * イベントの正は GatherPress のイベントである。
 * Zoom への HTTP とトークン保存は S2J Webinar プラグインが行う。
 * ホストは、OAuth で接続した Webinar 権限のある Zoom ユーザーである (WordPress 管理者とは別人でよい)。
-* 設問の良し悪しは Survey Service が判定する。本ライブラリは写像だけを持つ。
+* 設問の良し悪しは Survey Service が判定する。本ライブラリはマッピングだけを持つ。
 
 ## 解決する課題
 
@@ -19,7 +19,7 @@ Zoom Webinar の作成を管理画面と手作業で繰り返している状態�
 
 | 場面 | 利用者 | 本ライブラリの役割 |
 | --- | --- | --- |
-| イベントから Webinar を新規登録する | 運営者 (経由: プラグイン) | 検証 →1回の計画列 (`create` 等) → 各材料と応答写像 |
+| イベントから Webinar を新規登録する | 運営者 (経由: プラグイン) | 検証 →1回の計画列 (`create` 等) → 各材料と応答マッピング |
 | 項目変更後に Zoom に送る | 同上 | `dirty` の場合だけ `update` 材料 |
 | 登壇者の追加・削除 | 同上 | メール基準の差分とリクエスト材料 (`synced` のままでよい) |
 | 「Zoom で開く」 | 同上 | `get` → `map_webinar_response` の揮発 `start_url` をその場で開く (保存しない) |
@@ -56,7 +56,7 @@ flowchart TD
 
 | 層 | 役割 |
 | --- | --- |
-| 本ライブラリ | 検証、操作計画、リクエスト材料、差分、応答写像、survey 写像、OAuth 材料 |
+| 本ライブラリ | 検証、操作計画、リクエスト材料、差分、応答マッピング、survey マッピング、OAuth 材料 |
 | S2J Webinar | OAuth、HTTP、GatherPress メタ、管理画面 |
 | GatherPress | イベント UI ・日時・公開 URL |
 | Survey Service | 設問の検査・助言 |

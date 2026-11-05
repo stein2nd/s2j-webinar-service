@@ -12,7 +12,7 @@
 
 | 項目 | 状態 | パス |
 | --- | --- | --- |
-| 取り込み写像 (`zoom`) | 仕様確定 | [core/tracking_import_spec.md](../docs/core/tracking_import_spec.md) |
+| 取り込みマッピング (`zoom`) | 仕様確定 | [core/tracking_import_spec.md](../docs/core/tracking_import_spec.md) |
 | 入出力 DTO | 仕様確定 | [contracts/tracking_import_contract.md](../docs/contracts/tracking_import_contract.md) |
 | PHP 公開面 | 仕様確定 | [interfaces/tracking_import_php_api.md](../docs/interfaces/tracking_import_php_api.md) |
 | `src/` 実装 | 未着手 | 上記 spec に従う |

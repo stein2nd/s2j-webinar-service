@@ -1,5 +1,5 @@
 <!--
-目的：「プロバイダ・レジストリ (記述子 + 写像)」の明文化
+目的：「プロバイダ・レジストリ (記述子 + マッピング)」の明文化
 参考: S2J Slug Generater docs/05-providers.md (薄いレジストリ。OpenAPI codegen は持たない)
 -->
 
@@ -9,7 +9,7 @@
 
 [S2J Slug Generater の翻訳プロバイダ](https://github.com/stein2nd/s2j-slug-generater/blob/main/docs/05-providers.md) と同様に、Abstract Factory のクラス階層は置きません。**データ (記述子) + Adapter 関数** のレジストリにします。クラスを増やさず、記述子を1件追加して拡張します。
 
-* Clean Coding: プロバイダ固有のパス・ボディ・応答の解釈は、その記述子の写像に閉じる。パイプラインからは共通の操作とリクエスト材料だけが見える。
+* Clean Coding: プロバイダ固有のパス・ボディ・応答の解釈は、その記述子のマッピングに閉じる。パイプラインからは共通の操作とリクエスト材料だけが見える。
 * Similarity Service の OpenAPI / codegen / Embedding Strategy 群は持たない。HTTP 実行はプラグインである。
 
 ## レジストリ
@@ -25,7 +25,7 @@ lookupProvider(id: ProviderId): Result<WebinarProvider, provider_unsupported>
 
 ## 記述子のフィールド
 
-操作計画、Panelist 差分、レコード検証の骨格は、プロバイダ共通です。差分がある写像だけを記述子に置きます。**survey は、独立 Adapter フィールドを置きません。** `build_request` の `attach_survey` 分岐でボディを組み、正本はそのプロバイダの [survey_map_spec.md](./survey_map_spec.md) (初版 Zoom)。
+操作計画、Panelist 差分、レコード検証の骨格は、プロバイダ共通です。差分があるマッピングだけを記述子に置きます。**survey は、独立 Adapter フィールドを置きません。** `build_request` の `attach_survey` 分岐でボディを組み、正本はそのプロバイダの [survey_map_spec.md](./survey_map_spec.md) (初版 Zoom)。
 
 | フィールド | 層 | 用途 |
 | --- | --- | --- |
@@ -45,7 +45,7 @@ lookupProvider(id: ProviderId): Result<WebinarProvider, provider_unsupported>
 | 項目 | 正本 |
 | --- | --- |
 | 作成・更新・削除・取得、Panelist | [request_spec.md](./request_spec.md) |
-| 応答写像 | [result_spec.md](./result_spec.md) |
+| 応答マッピング | [result_spec.md](./result_spec.md) |
 | OAuth スコープ | [oauth_spec.md](./oauth_spec.md) |
 | アンケート PATCH | [survey_map_spec.md](./survey_map_spec.md) |
 | Source Tracking GET 取り込み | [tracking_import_spec.md](./tracking_import_spec.md) |
@@ -74,7 +74,7 @@ oauth_materials('token'|'refresh', config, ...) -> RequestMaterial
 
 ## 追加手順 (コントリビュータ)
 
-1. 記述子を1件足す (`id`、案内、`build_request` / `map_result`、必要なら `oauth_materials`。survey は `build_request` の `attach_survey` と写像仕様)。
+1. 記述子を1件足す (`id`、案内、`build_request` / `map_result`、必要なら `oauth_materials`。survey は `build_request` の `attach_survey` とマッピング仕様)。
 2. レジストリに登録する。
 3. その `id` 向けの PHPUnit (未知 ID は `provider_unsupported`、組込みは既存分岐を壊さない)。
 4. 仕様に組込み表を1行足す。プラグイン側は、実装済みが増えたら選択 UI を出す ([S2J Webinar specs](https://github.com/stein2nd/s2j-webinar/blob/main/docs/specs.md))。
@@ -83,7 +83,7 @@ oauth_materials('token'|'refresh', config, ...) -> RequestMaterial
 
 | 置き場 | 持つもの |
 | --- | --- |
-| 本ライブラリ | レジストリ、記述子、写像 |
+| 本ライブラリ | レジストリ、記述子、マッピング |
 | プラグイン | 選択 UI (実装済みが増えた場合)、OAuth クライアント、トークン、HTTP、メタの `provider` |
 
 ## 関連

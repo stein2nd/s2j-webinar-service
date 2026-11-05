@@ -2,6 +2,15 @@
 
 ## unreleased
 
+## 0.2.2 - 2026-11-05
+
+### Changed
+
+* docs: README と仕様 (`docs/`、`docs_mod/`) — 用語を写像から **マッピング** に統一 (結果 / survey / tracking / provider 等)。公開 PHP API と map 系関数名は不変
+* dev: `@s2j/docs-linter` ^1.0.32 (lockfile)
+* dev: PHPStan v2.3.5 (`composer.lock`)
+* npm: `package.json` v0.2.2 (private メタ)
+
 ## 0.2.1 - 2026-10-29
 
 ### Changed
@@ -29,7 +38,7 @@
 ### Changed
 
 * docs: [status](./docs/status.md) §プラグイン — [S2J Webinar](https://github.com/stein2nd/s2j-webinar) 側の段階1〜2手動 Pass (2026-10-17)、品質スモーク未了1項 (Service §プラグイン相互 `[x]`)、プラグイン [operational_material_index](https://github.com/stein2nd/s2j-webinar/blob/main/docs/operational_material_index.md) §実装優先順を注記
-* docs: [status](./docs/status.md) §プラグイン — 運用素材 P2a (`tracking-source-definitions` REST、Source QR 引き渡し) と Gutenberg panelist / GatherPress join URL 修正を [S2J Webinar](https://github.com/stein2nd/s2j-webinar) 進捗として注記 (tracking 取り込み REST → Service 写像は引き続き `[ ]`)
+* docs: [status](./docs/status.md) §プラグイン — 運用素材 P2a (`tracking-source-definitions` REST、Source QR 引き渡し) と Gutenberg panelist / GatherPress join URL 修正を [S2J Webinar](https://github.com/stein2nd/s2j-webinar) 進捗として注記 (tracking 取り込み REST → Service マッピングは引き続き `[ ]`)
 
 ## 0.1.2 - 2026-10-16
 
@@ -65,7 +74,7 @@ Packagist 初回配布 (`s2j/webinar-service`)。
 
 * Packagist [s2j/webinar-service](https://packagist.org/packages/s2j/webinar-service) 登録 (GitHub auto-update / dev-main)
 
-* PHP ライブラリ初版 (`src/`、`S2J\WebinarService\` 公開関数、Zoom 記述子): 正規化・検証、操作計画、Panelist 差分、CRUD/panelist/survey 材料、結果写像、OAuth 材料、tracking 取り込み
+* PHP ライブラリ初版 (`src/`、`S2J\WebinarService\` 公開関数、Zoom 記述子): 正規化・検証、操作計画、Panelist 差分、CRUD/panelist/survey 材料、結果マッピング、OAuth 材料、tracking 取り込み
 * PHPUnit: 102件 (request/result/survey/tracking 仕様行、契約 JSON `tests/Fixtures/contracts/`、モック provider 回帰)
 * CI `php-quality` / `release` (タグ): `scripts/verify/all.zsh` (validate / dist / PHPUnit / PHPStan / PHPCS)
 * `composer validate-composer` / `composer verify-dist`、Packagist 向け `composer.json` メタ
@@ -94,7 +103,7 @@ Packagist 初回配布 (`s2j/webinar-service`)。
 ### Added
 
 * docs (v0.0.2): Source Tracking 取り込みを `docs_mod/` から確定移行 — [tracking_import_spec](./docs/core/tracking_import_spec.md)、[tracking_import_contract](./docs/contracts/tracking_import_contract.md)、[tracking_import_php_api](./docs/interfaces/tracking_import_php_api.md)
-* docs: `zoom` GET 写像、`build_tracking_sources_request` / `map_tracking_sources_response`、tracking 専用 deficiencies (`tracking_http_error` 等)。Webinar 同期 `plan` / `build_webinar_request` には載せない
+* docs: `zoom` GET マッピング、`build_tracking_sources_request` / `map_tracking_sources_response`、tracking 専用 deficiencies (`tracking_http_error` 等)。Webinar 同期 `plan` / `build_webinar_request` には載せない
 
 ### Changed
 
@@ -121,10 +130,10 @@ Packagist 初回配布 (`s2j/webinar-service`)。
 
 * `docs_mod/` レジストリ BP: 公開関数は記述子への薄いファサード、`build_webinar_request` は `{ material?, deficiencies }`、未知 provider は不足、OAuth / request / result は Zoom 記述子の正本、用語 (記述子 / Adapter / HTTP Adapter) を辞書で固定、status にレジストリ行、architecture ツリー体裁
 * `docs_mod/service_spec.md` を統合見取り図に整理。規則の正本は `core/`。参加登録デフォルトは `0` で統一。Survey Service リンクを `docs/specs.md` に更新
-* `docs_mod/` の監査 BP を反映: survey 添付を `attach_survey` に一本化、計画 context / `operations[]` 形の固定、`plan` 内 diff と dirty 所有の断言、未知 provider は不足、get は status 非変更、`duration_minutes` は1以上、`start_at` ワイヤ例、status 正規化 (id 空→`not_created`、欠落+id →`dirty`)、panelist/survey 成功写像
-* `docs_mod/` 再監査 BP: `attach_survey` 要素に `survey_document` 必須、OAuth に `webinar:update:survey`、concept を単一 plan ループに、結果写像は2xx=成功、`none` は空配列、dirty は本体項目のみ、get/delete 失敗写像、architecture ツリー体裁
+* `docs_mod/` の監査 BP を反映: survey 添付を `attach_survey` に一本化、計画 context / `operations[]` 形の固定、`plan` 内 diff と dirty 所有の断言、未知 provider は不足、get は status 非変更、`duration_minutes` は1以上、`start_at` ワイヤ例、status 正規化 (id 空→`not_created`、欠落+id →`dirty`)、panelist/survey 成功マッピング
+* `docs_mod/` 再監査 BP: `attach_survey` 要素に `survey_document` 必須、OAuth に `webinar:update:survey`、concept を単一 plan ループに、結果マッピングは2xx=成功、`none` は空配列、dirty は本体項目のみ、get/delete 失敗マッピング、architecture ツリー体裁
 * `docs_mod/` 再々監査 BP: id 空の作成失敗は `error` 維持、usage は失敗で列中断、survey PATCH の `custom_survey` 包み、operations 列順、`intend_retry` は id 非空向け、OAuth は表スコープを一括要求
-* `docs_mod/` 軽微 BP: 手順3見出しに id 空 error、usage break 注記、結果写像に204/null、testing 列順、`internal_name` は初版送らない
+* `docs_mod/` 軽微 BP: 手順3見出しに id 空 error、usage break 注記、結果マッピングに204/null、testing 列順、`internal_name` は初版送らない
 * `docs_mod/` 境界 BP: メタキー名はプラグイン仕様に閉じる、Panelist 追加ボディ形を固定、メール正規化は trim + ASCII 小文字
 * `docs_mod/`: メールの trim + ASCII 小文字は差分・リクエスト組立のみ。`normalize_webinar_record` はレコードに書き戻さない
 * プロバイダはアダプタで差し替え可能とする。初版は `zoom` のみ。空実装は置かない。管理画面での選択はプラグイン側
@@ -132,7 +141,7 @@ Packagist 初回配布 (`s2j/webinar-service`)。
 * `npm run lint:docs` の対象に `docs_mod/**/*.md` を追加
 * `docs_mod/` Adapter BP: Adapter 狭い戻りと公開封筒、`map_result` に `start_url`、`map` 未知 provider は deficiencies、operation は意味のみ、Zoom 実装は `Providers/`、survey は `build_request` 分岐、OAuth kind 別戻り、用語 Deficiency、Panelist 削除 ID は Zoom 注記、`adapters/http` 非配置
 * `docs_mod/` 追随 BP: 原則の例外範囲、service_spec の `start_url` / create パス、operation remove は意味のみ、survey_map 見出し、`provider_unsupported` は map も含む
-* `docs_mod/contracts/data_dictionary.md`: `provider_unsupported` を検証・リクエスト組立・応答写像の三面にそろえる
+* `docs_mod/contracts/data_dictionary.md`: `provider_unsupported` を検証・リクエスト組立・応答マッピングの三面にそろえる
 * `docs_mod/`: build の材料不能 (id 空等) は例外。不足コードは validation 一覧のみ。正規化デフォルトを record_spec / data_contract でそろえる
 * `docs_mod/contracts/data_dictionary.md`: Deficiency は公開封筒・検証のコード。Adapter `build_request` の戻りではない、と明記
 * `docs_mod/contracts/data_contract_spec.md`: `map_webinar_response` の戻りを `record` / `start_url?` / `deficiencies` に固定。プログラマー誤りは `InvalidArgumentException`

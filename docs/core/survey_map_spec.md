@@ -1,10 +1,6 @@
-<!--
-目的：「Survey 文書 → Zoom survey PATCH」の明文化
--->
+# S2J Webinar Service - アンケートマッピング仕様
 
-# S2J Webinar Service - アンケート写像仕様
-
-本ファイルは **Zoom (`zoom`) 記述子** の `build_request( 'attach_survey' )` 写像正本です。組立入口は `build_webinar_request( 'attach_survey', … )`。
+本ファイルは **Zoom (`zoom`) 記述子** の `build_request( 'attach_survey' )` マッピング正本です。組立入口は `build_webinar_request( 'attach_survey', … )`。
 
 ## 責務
 
@@ -37,7 +33,7 @@
 
 * `custom_survey.title` は操作要素の `webinar_title`、欠落時はレコードの `topic`。説明文は空 (キーを送らない)。
 * `third_party_survey` は初版では送らない。
-* `questions` の各要素は下記のキー写像に従う。
+* `questions` の各要素は下記のキーマッピングに従う。
 
 ## 初版で送る type
 
@@ -50,7 +46,7 @@
 | レーティング・スケール | `rating_scale` | 送る |
 | マッチング / ランク順 / 空欄記入 | `matching` / `rank_order` / `fill_in_the_blank` | 送らない |
 
-## キー写像
+## キーマッピング
 
 設問は **`answer_kind`** で分岐する。文書トップや設問に `single` / `short` などのキーはない (値は `answer_kind` に入る)。
 

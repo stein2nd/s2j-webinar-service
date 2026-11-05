@@ -4,7 +4,7 @@
 
 # Source Tracking 取り込み — 入出力契約
 
-写像規則の正本は [../core/tracking_import_spec.md](../core/tracking_import_spec.md) です。Webinar レコード DTO は [data_contract_spec.md](./data_contract_spec.md) です。
+マッピング規則の正本は [../core/tracking_import_spec.md](../core/tracking_import_spec.md) です。Webinar レコード DTO は [data_contract_spec.md](./data_contract_spec.md) です。
 
 ## TrackingSourceItem (正規化行)
 

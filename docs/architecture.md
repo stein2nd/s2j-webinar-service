@@ -6,7 +6,7 @@
 
 ## 設計意図 (ゴール)
 
-Webinar の検証・操作計画・リクエスト材料・写像を、WordPress と HTTP 実行から切り離し、PHPUnit だけで回帰できるようにします。
+Webinar の検証・操作計画・リクエスト材料・マッピングを、WordPress と HTTP 実行から切り離し、PHPUnit だけで回帰できるようにします。
 
 ## 設計方針
 
@@ -20,7 +20,7 @@ Webinar の検証・操作計画・リクエスト材料・写像を、WordPress
 | 層 | 責務 | 非責務 |
 | --- | --- | --- |
 | Contracts | レコード・リクエスト・結果の形 | 検証・差分の本体 |
-| Core | 検証、操作計画、Panelist 差分、リクエスト材料、応答写像、survey 写像、OAuth 材料 | I/O、HTTP 実行 |
+| Core | 検証、操作計画、Panelist 差分、リクエスト材料、応答マッピング、survey マッピング、OAuth 材料 | I/O、HTTP 実行 |
 | Interfaces | 公開関数の入口 | ドメイン規則の重複実装 |
 
 ```mermaid
@@ -32,7 +32,7 @@ flowchart TD
   P -->|"HTTP + OAuth"| Z["Zoom REST"]
   G["GatherPress"] -.->|"イベント正"| P
   S["Survey Service"] -.->|"ready 文書"| P
-  P -->|"survey 写像"| I
+  P -->|"survey マッピング"| I
 ```
 
 ## フォルダー構成 (想定)
@@ -41,7 +41,7 @@ flowchart TD
 
 本ライブラリに **`adapters/http/` は置きません。** HTTP 実行はプラグイン (HTTP Adapter)。記述子上の Adapter 関数とは別物です ([contracts/data_dictionary.md](./contracts/data_dictionary.md))。ライブラリ SoT は、上記の純関数構成です。
 
-Zoom 固有のパス、ボディ、OAuth スコープ、survey / 結果写像は **`Core/Providers/` 配下の記述子** に置きます。`Core/Request.php` 等に Zoom 文字列をハードコードしません (ディスパッチと薄い委譲のみ)。
+Zoom 固有のパス、ボディ、OAuth スコープ、survey / 結果マッピングは **`Core/Providers/` 配下の記述子** に置きます。`Core/Request.php` 等に Zoom 文字列をハードコードしません (ディスパッチと薄い委譲のみ)。
 
 ```plaintext
 s2j-webinar-service/
@@ -66,7 +66,7 @@ s2j-webinar-service/
 │   │   ├── Request.php      # レジストリ経由の委譲 (Zoom パスは置かない)
 │   │   ├── Result.php
 │   │   ├── Oauth.php
-│   │   └── Providers/       # zoom: path/body/写像の正本実装 (空実装は置かない)
+│   │   └── Providers/       # zoom: path/body/マッピングの正本実装 (空実装は置かない)
 │   └── …                    # 公開関数 (名前空間 S2J\WebinarService\)
 └── tests/
     ├── Unit/
@@ -88,7 +88,7 @@ s2j-webinar-service/
 
 | 置き場 | 中身 |
 | --- | --- |
-| 本ライブラリ | 計算 (検証・計画・材料・写像) |
+| 本ライブラリ | 計算 (検証・計画・材料・マッピング) |
 | S2J Webinar | OAuth、HTTP、メタ、画面 |
 | GatherPress | イベント UI |
 | Survey Service | 設問の検査・助言 |

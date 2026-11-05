@@ -121,7 +121,7 @@ Panelist 差分は、本関数が `previous_panelists` とレコードの `panel
 追加が失敗しても Webinar は削除しません。ID は残します。survey 未完了を create の条件にしません。
 
 1. `create` を送る。  
-2. 応答を写像し `webinar_id` を得る。  
+2. 応答をマッピングし `webinar_id` を得る。  
 3. `add_panelists` を送る (計画にあれば)。  
 4. `attach_survey` を送る (計画にあれば。ready 文書が後から来た場合は、別呼び出しの計画で本ステップだけを行う)。
 

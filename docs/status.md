@@ -27,9 +27,9 @@
 | 操作計画 | 実装済み | 100 | [§ 操作計画](#status-plan) (11/11) |
 | リクエスト材料 (CRUD + Panelist) | 実装済み (`zoom`) | 100 | [§ リクエスト材料](#status-request) (12/12) |
 | Panelist 差分 | 実装済み | 100 | [§ Panelist](#status-panelist) (6/6) |
-| 結果写像 | 実装済み (`zoom`) | 100 | [§ 結果写像](#status-result) (11/11) |
+| 結果マッピング | 実装済み (`zoom`) | 100 | [§ 結果マッピング](#status-result) (11/11) |
 | OAuth 材料 | 実装済み (`zoom`) | 100 | [§ OAuth](#status-oauth) (9/9) |
-| アンケート写像 | 実装済み (`zoom`) | 100 | [§ アンケート](#status-survey) (9/9) |
+| アンケートマッピング | 実装済み (`zoom`) | 100 | [§ アンケート](#status-survey) (9/9) |
 | Source Tracking 取り込み | 実装済み (`zoom`) | 100 | [§ Tracking](#status-tracking) (12/12) |
 | PHPUnit / PHPStan / PHPCS | 実装済み | 100 | [§ 品質ゲート](#status-quality) (7/7) |
 | Packagist 公開 | 実装済み | 100 | [§ Packagist](#status-packagist) (5/5) |
@@ -54,7 +54,7 @@
 * [x] Test: `MapWebinarResponseTest` — 公開 `map_webinar_response`
 * [x] Test: `OAuthMaterialsTest` — 公開 `build_oauth_*`
 * [x] Test: `TrackingImportTest` — 公開 `build_tracking_sources_request` / `map_tracking_sources_response`
-* [x] Test: `SurveyHelperTest` — `build_survey_update_request` が SoT と同一写像 (`webinar_title` null / topic フォールバック)
+* [x] Test: `SurveyHelperTest` — `build_survey_update_request` が SoT と同一マッピング (`webinar_title` null / topic フォールバック)
 * [x] Test: 未知 `op` の build / map が `InvalidArgumentException` (`BuildFacadeTest` / `MapWebinarResponseTest`)
 * [x] CI: `php-quality` — `composer install` → PHPUnit
 * [x] CI: `php-quality` — PHPStan level8
@@ -136,7 +136,7 @@
 * [x] Test: `PanelistDiffTest::testAddPanelistsRequestBodyLowercasesEmail`
 * [x] Test: `PanelistDiffTest::testNameIsTrimmedInDiffAdd`
 
-### 結果写像 {#status-result}
+### 結果マッピング {#status-result}
 
 正本: [result_spec.md](./core/result_spec.md)
 
@@ -166,7 +166,7 @@
 * [x] Test: `OAuthMaterialsTest::testTokenExchangeMissingRedirectUriThrows` / `testRefreshMissingClientSecretThrows`
 * [x] Test: `OAuthMaterialsTest::testRefreshRequestBodyAndFullTokenUrl` — token URL
 
-### アンケート写像 {#status-survey}
+### アンケートマッピング {#status-survey}
 
 正本: [survey_map_spec.md](./core/survey_map_spec.md)
 
@@ -228,7 +228,7 @@
 * [x] プラグイン: `GET …/tracking-sources` REST → `build_tracking_sources_request` / `map_tracking_sources_response` ([`TrackingSourcesImport.php`](https://github.com/stein2nd/s2j-webinar/blob/main/includes/SourceQr/TrackingSourcesImport.php)、Integration [`TrackingSourcesRestTest.php`](https://github.com/stein2nd/s2j-webinar/blob/main/tests/Integration/TrackingSourcesRestTest.php) — [§運用素材 P2b](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-operational))
 * [ ] 結合: ステージング Zoom — [外部結合ゲート E1–E4](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-external) + [test-results.md](https://github.com/stein2nd/s2j-webinar/blob/main/docs/test-results.md)
 
-**S2J Webinar 側 (2026-10-19):** [§品質・スモーク](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-quality) — 段階3a **22**、3b **22 + 14**、`lint:php`、smoke (tracking-sources 含む)。**運用素材 Local 完結:** **P1** CoverArt / フライヤー、**P2a** 定義 REST、**P2b** 取り込み REST いずれも `[x]` (P3 配配メールは v0.0.2 対象外)。**Local 可 (E*):** Source QR **E5** / **E7** Pass。**残 (要 HTTPS):** E1–E4 実 Zoom。本 repo §プラグイン相互 `[x]` は上記 P2b 到達で満たし済み。
+**S2J Webinar 側 (2026-10-19):** [§品質・スモーク](https://github.com/stein2nd/s2j-webinar/blob/main/docs/status.md#status-quality) — 段階3a **22**、3b **22 + 14**、`lint:php`、smoke (tracking-sources 含む)。**運用素材 Local 完結:** **P1** CoverArt / フライヤー、**P2a** 定義 REST、**P2b** 取り込み REST いずれも `[x]` (P3配配メールは v0.0.2対象外)。**Local 可 (E*):** Source QR **E5** / **E7** Pass。**残 (要 HTTPS):** E1– E4実 Zoom。本 repo §プラグイン相互 `[x]` は上記 P2b 到達で満たし済み。
 
 ## 補足
 

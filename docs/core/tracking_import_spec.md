@@ -1,12 +1,8 @@
-<!--
-目的：「Source Tracking GET 取り込み (初版 zoom)」の明文化
--->
-
-# S2J Webinar Service - Source Tracking 取り込み写像
+# S2J Webinar Service - Source Tracking 取り込みマッピング
 
 ← 索引は [../specs.md](../specs.md)。
 
-本ファイルは **プロバイダ `zoom` 記述子** の Source Tracking **一覧 GET** 写像正本です (v0.0.2)。**Webinar 同期パイプライン (`plan` / `build_webinar_request`) とは別系統** です。
+本ファイルは **プロバイダ `zoom` 記述子** の Source Tracking **一覧 GET** マッピング正本です (v0.0.2)。**Webinar 同期パイプライン (`plan` / `build_webinar_request`) とは別系統** です。
 
 ## 設計意図 (ゴール)
 
@@ -42,7 +38,7 @@ sequenceDiagram
   WP-->>QR: JSON items (handoff 契約)
 ```
 
-Source QR は **Service を直接 require しなくてよい** (写像済み JSON だけ受け取る)。S2J Webinar は Composer で本ライブラリを require し、上記2関数を呼ぶ。
+Source QR は **Service を直接 require しなくてよい** (マッピング済み JSON だけ受け取る)。S2J Webinar は Composer で本ライブラリを require し、上記2関数を呼ぶ。
 
 ## レジストリ拡張
 
@@ -55,7 +51,7 @@ Source QR は **Service を直接 require しなくてよい** (写像済み JSO
 
 未知 `provider` は lookup 失敗で **`provider_unsupported`**。`build_webinar_request` / `map_webinar_response` には **載せない**。
 
-[provider_spec.md](./provider_spec.md) の Zoom 表から本写像にリンクします。
+[provider_spec.md](./provider_spec.md) の Zoom 表から本マッピングにリンクします。
 
 ## 公開 PHP API
 
@@ -116,7 +112,7 @@ function map_tracking_sources_response(string $provider, int $status, string $bo
 | `registration_url` | string | trim 後、`http://` または `https://` で始まる。**接続先が返した URL をそのまま** (クエリー並べ替え等をしない) |
 | `external_id` | string | 任意。Zoom の `id` を文字列化 |
 
-`source_name` とイベントチャネル `id` の **マッチングは Source QR 側** (完全一致)。本ライブラリは **写像のみ**。
+`source_name` とイベントチャネル `id` の **マッチングは Source QR 側** (完全一致)。本ライブラリは **マッピングのみ**。
 
 ## プロバイダ `zoom`
 
@@ -141,14 +137,14 @@ Zoom が **401や403** など、成功系 (2xx) 以外の HTTP ステータス�
 2. 本ライブラリは `items` を空にし、`deficiencies` に **`tracking_http_error`** を載せる (401と403を分ける専用コードは v0.0.2では置かない)。
 3. プラグインは i18n のメッセージだけを画面に出し、生の Zoom 応答や token は載せない。
 
-### 応答ボディ写像
+### 応答ボディマッピング
 
-Zoom が返す配列 (または `tracking_sources` キー配下) の **実例差** があるため、初版写像は次の **両方** を許容します (実装時に PHPUnit で固定)。
+Zoom が返す配列 (または `tracking_sources` キー配下) の **実例差** があるため、初版マッピングは次の **両方** を許容します (実装時に PHPUnit で固定)。
 
 1. **トップレベル JSON 配列** — 各要素がオブジェクト。
 2. **オブジェクトラップ** — `{ "tracking_sources": [ ... ] }` のみ (他キーは無視)。
 
-各要素からのキー写像:
+各要素からのキーマッピング:
 
 | Zoom (API) | 正規化 DTO |
 | --- | --- |
@@ -156,7 +152,7 @@ Zoom が返す配列 (または `tracking_sources` キー配下) の **実例差
 | `tracking_url` | `registration_url` |
 | `id` | `external_id` (存在時のみ。数値は `(string)`) |
 
-`tracking_url` 以外の URL フィールド (`registration_url` 等) が単独で来た場合は **初版では無視** (写像正本は `tracking_url` のみ)。
+`tracking_url` 以外の URL フィールド (`registration_url` 等) が単独で来た場合は **初版では無視** (マッピング正本は `tracking_url` のみ)。
 
 ### 繰り返しウェビナー
 
@@ -179,7 +175,7 @@ GatherPress **1イベント1Webinar** 想定のため v0.0.2では調査のみ (
 ## テスト観点
 
 * `zoom` + 有効 `webinar_id` → GET material のパスに ID が埋まる。
-* 配列 JSON → `items` 件数と写像フィールド。
+* 配列 JSON → `items` 件数とマッピングフィールド。
 * ラップ JSON `{ tracking_sources: [...] }` → 同上。
 * 行に `tracking_url` 欠落 → その行だけ落ち、他行は残る。
 * 全行不正 → `tracking_sources_empty`。

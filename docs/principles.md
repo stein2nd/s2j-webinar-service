@@ -17,7 +17,7 @@
 * Core は、グローバル状態、ネットワーク、ファイルシステムに依存しない。
 * 「今」が必要な場合は、呼び出し側が時刻を引数で渡す (初版の操作計画は主に渡された `status` とレコード内容で足りる)。
 * `dirty` / `synced` の **業務判定** (どの項目が変わったか) は呼び出し側。ライブラリは受け取った `status` をフィールド差分から推測し直さない。
-* 応答写像は HTTP 成否に応じて `synced` / `error` / `not_created` 等を書いてよい (正本は [core/result_spec.md](./core/result_spec.md))。
+* 応答マッピングは HTTP 成否に応じて `synced` / `error` / `not_created` 等を書いてよい (正本は [core/result_spec.md](./core/result_spec.md))。
 * 同じ入力には、同じ操作計画・同じリクエスト材料を返す。
 
 ### 3. 依存方向
@@ -51,7 +51,7 @@ flowchart TD
 
 ### 6. プロバイダ
 
-* プロバイダは **記述子 + Adapter 関数のレジストリ** で差し替える。共通はレコードと操作の骨格、差分は記述子の写像に閉じる。正本は [core/provider_spec.md](./core/provider_spec.md) (Slug Generater の翻訳プロバイダに倣う。OpenAPI codegen は持たない)。
+* プロバイダは **記述子 + Adapter 関数のレジストリ** で差し替える。共通はレコードと操作の骨格、差分は記述子のマッピングに閉じる。正本は [core/provider_spec.md](./core/provider_spec.md) (Slug Generater の翻訳プロバイダに倣う。OpenAPI codegen は持たない)。
 * うち **build / map / OAuth** はレジストリを引く薄いファサードである。normalize / validate / plan / diff は共通 Core である。
 * プロバイダ規則の正本入口に Zoom 専用分岐を置かない。任意の Zoom 専用ヘルパ (非 SoT) は置いてよい (正本は `attach_survey` 等)。
 * 初版の実装は `zoom` だけである。使わない接続先の空実装は置かない。
@@ -63,7 +63,7 @@ flowchart TD
 ### 7. 設問は外
 
 * 設問の検査・助言は、Survey Service である。
-* 本ライブラリは、Zoom アンケートへの写像だけを持つ。公開入口は `attach_survey` (survey 未完了を create の条件にしない)。
+* 本ライブラリは、Zoom アンケートへのマッピングだけを持つ。公開入口は `attach_survey` (survey 未完了を create の条件にしない)。
 
 ## 借用する原則
 
@@ -72,5 +72,5 @@ flowchart TD
 | 原則 | 本ライブラリでの意味 |
 | --- | --- |
 | 依存の向きは外 → 内 | 純関数は WP / GatherPress / HTTP / Zoom SDK を知らない |
-| 内側はビジネスルール | 検証、操作計画、Panelist 差分、写像 |
+| 内側はビジネスルール | 検証、操作計画、Panelist 差分、マッピング |
 | 外側は詳細 | プラグインが OAuth、HTTP、画面を持つ |

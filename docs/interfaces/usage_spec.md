@@ -1,12 +1,8 @@
-<!--
-目的：「使用方法」の明文化
--->
-
 # S2J Webinar Service - 使用方法
 
 ## 設計意図 (ゴール)
 
-内部実装を意識せず、プラグインが検証・操作計画・リクエスト材料・応答写像を呼べるようにします。HTTP とトークン保存のタイミングの正本は [S2J Webinar](https://github.com/stein2nd/s2j-webinar) の仕様です。
+内部実装を意識せず、プラグインが検証・操作計画・リクエスト材料・応答マッピングを呼べるようにします。HTTP とトークン保存のタイミングの正本は [S2J Webinar](https://github.com/stein2nd/s2j-webinar) の仕様です。
 
 Survey 添付も同じパイプラインです (`plan` → `attach_survey` → `build_webinar_request`)。survey 未完了を create の条件にせず、ready 文書がそろった時点で同じ入口から付けます。
 
@@ -57,7 +53,7 @@ foreach ( $ops as $step ) {
 		return;
 	}
 	$validated['record'] = $mapped['record'];
-	// 写像後に status が error なら残りの op は送らない
+	// マッピング後に status が error なら残りの op は送らない
 	// (書き込み失敗は map が error にする。get 失敗は status を変えないが、get は列末尾)
 	if ( 'error' === $mapped['record']['status'] ) {
 		break;

@@ -97,7 +97,7 @@ Webinar の `type` は単発の `5` だけです。繰り返し (`6` / `9`) は�
 
 ## attach_survey
 
-公開の正本入口 (SoT) は `build_webinar_request( 'attach_survey', … )` です。操作要素の `survey_document` は必須 ([operation_spec.md](./operation_spec.md))。ボディのトップ形と設問写像は [survey_map_spec.md](./survey_map_spec.md) を正本とします。任意の `build_survey_update_request` は非 SoT ・ Zoom 専用の薄い委譲とし、規則を分岐させません。
+公開の正本入口 (SoT) は `build_webinar_request( 'attach_survey', … )` です。操作要素の `survey_document` は必須 ([operation_spec.md](./operation_spec.md))。ボディのトップ形と設問マッピングは [survey_map_spec.md](./survey_map_spec.md) を正本とします。任意の `build_survey_update_request` は非 SoT ・ Zoom 専用の薄い委譲とし、規則を分岐させません。
 
 ## 参加登録 (`approval_type`)
 

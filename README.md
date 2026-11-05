@@ -16,7 +16,7 @@ composer require s2j/webinar-service
 
 ## 使い方
 
-公開関数 (検証・操作計画・リクエスト材料・写像) の骨格は [docs/interfaces/usage_spec.md](docs/interfaces/usage_spec.md) を参照してください。
+公開関数 (検証・操作計画・リクエスト材料・マッピング) の骨格は [docs/interfaces/usage_spec.md](docs/interfaces/usage_spec.md) を参照してください。
 
 ## 仕様
 

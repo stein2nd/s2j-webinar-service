@@ -31,7 +31,7 @@
 
 | 正本 | 内容 |
 | --- | --- |
-| [tracking_import_spec.md](../docs/core/tracking_import_spec.md) | `zoom` GET 写像 |
+| [tracking_import_spec.md](../docs/core/tracking_import_spec.md) | `zoom` GET マッピング |
 | [tracking_import_contract.md](../docs/contracts/tracking_import_contract.md) | DTO |
 | [tracking_import_php_api.md](../docs/interfaces/tracking_import_php_api.md) | 公開面索引 |
 
