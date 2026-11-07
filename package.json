@@ -1,6 +1,6 @@
 {
     "name": "s2j-webinar-service",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "private": true,
     "description": "A pure PHP library for building a Webinar Request (WP-Independent)",
     "author": "Koutarou ISHIKAWA",

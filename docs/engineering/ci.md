@@ -17,6 +17,8 @@ WordPress 統合ジョブは、本ライブラリ単体では持ちません。
 
 `composer.json` の `require.php` は **>=8.3** (WordPress [必須要件](https://ja.wordpress.org/about/requirements/) の推奨に合わせる)。
 
+Runner は **`ubuntu-24.04`** 固定 (`ubuntu-latest` の OS 移行アノテーション回避)。`docs-lint` は `NODE_VERSION: "24"`、`actions/checkout@v5` / `setup-node@v5`。
+
 ローカルでは `npm run quality` が php-quality と同じ並びです。`composer install` は事前に実行してください。
 
 ## 関連

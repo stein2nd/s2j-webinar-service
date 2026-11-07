@@ -2,6 +2,15 @@
 
 ## unreleased
 
+## 0.2.3 - 2026-11-07
+
+### Changed
+
+* CI: `docs-lint` / `php-quality` / `release` — runner `ubuntu-24.04`、`actions/checkout@v5` (`ubuntu-latest` 移行・非推奨ランタイムのアノテーション回避)
+* CI: `docs-lint` — `setup-node@v5`、`NODE_VERSION: "24"`
+* docs: [ci.md](./docs/engineering/ci.md) — Runner / Actions 注記
+* npm: `package.json` v0.2.3 (private メタ)
+
 ## 0.2.2 - 2026-11-05
 
 ### Changed
