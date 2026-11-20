@@ -2,6 +2,14 @@
 
 ## unreleased
 
+## 0.2.4 - 2026-11-20
+
+### Changed
+
+* dev: `@s2j/docs-linter` ^1.0.34 (lockfile)
+* dev: PHPStan 2.3.7、PHPUnit 10.5.67 (`composer.lock`)
+* npm: `package.json` v0.2.4 (private メタ)
+
 ## 0.2.3 - 2026-11-07
 
 ### Changed
